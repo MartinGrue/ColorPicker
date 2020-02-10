@@ -1,3 +1,17 @@
+<p align="center">
+  <a>
+    <img alt="ColorPicker" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/223/artist-palette_1f3a8.png" width="60" />
+  </a>
+</p>
+<h1 align="center">
+ React Demo based on Create React App
+</h1>
+
+## 🧐 What's inside?
+
+This project is heavily inspired by https://flatuicolors.com/palette/au
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
