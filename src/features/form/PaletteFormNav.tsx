@@ -11,11 +11,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { IPalette } from './models/IPalette';
+import { IPalette } from '../../models/IPalette';
 import { Theme, createStyles, withStyles } from '@material-ui/core/styles';
 import PaletteMetaForm from './PaletteMetaForm';
 import { BaseEmoji } from 'emoji-mart';
-import { sizes } from './styles/sizes';
+import { sizes } from '../../styles/sizes';
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles';
 
 const drawerWidth = 400;
@@ -57,14 +57,14 @@ const styles = (theme: Theme) =>
     }
   });
 
-interface PaletteFormNav {
+interface PaletteFormNavProps {
   classes: any;
   open: boolean;
   localsavePalette: (newPaletteName: string, emoji: BaseEmoji) => void;
   setOpen: any;
   palettes: IPalette[];
 }
-const PaletteFormNav: React.FC<PaletteFormNav> = ({
+const PaletteFormNav: React.FC<PaletteFormNavProps> = ({
   classes,
   open,
   localsavePalette,

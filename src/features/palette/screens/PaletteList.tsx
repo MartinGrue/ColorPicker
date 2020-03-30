@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { IPalette } from './models/IPalette';
+import { IPalette } from '../../../models/IPalette';
 import MiniPalette from './MiniPalette';
 import { withStyles, createStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
-import { sizes } from './styles/sizes';
-import bg from './Rainbow-Vortex.svg';
+import { sizes } from '../../../styles/sizes';
+import bg from '../../../Rainbow-Vortex.svg';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Dialog from '@material-ui/core/Dialog';
 import { DialogTitle } from '@material-ui/core';
@@ -19,7 +19,6 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import blue from '@material-ui/core/colors/blue';
 import red from '@material-ui/core/colors/red';
-import Pallete from './Pallete';
 const styles = createStyles({
   '@global': {
     '.fade-exit': { opacity: 1 },

@@ -25,7 +25,7 @@
 //     ]
 //   }
 import chroma from 'chroma-js';
-import { IPalette } from './models/IPalette';
+import { IPalette } from '../../models/IPalette';
 const levels = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 function getRange(hexColor: string) {
   const end = '#fff';

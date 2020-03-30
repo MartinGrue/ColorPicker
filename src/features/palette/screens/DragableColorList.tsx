@@ -1,6 +1,6 @@
 import React from 'react';
 import { SortableContainer } from 'react-sortable-hoc';
-import DragableColorBox from './DragableColorBox';
+import DragableColorBox from '../../form/DragableColorBox';
 
 interface DragableColorListProps {
   colorObjs: { name: string; color: string }[];

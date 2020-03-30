@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles, createStyles } from '@material-ui/styles';
-import { sizes } from './styles/sizes';
+import { sizes } from '../../../styles/sizes';
 
 const styles = createStyles({
   navBar: {

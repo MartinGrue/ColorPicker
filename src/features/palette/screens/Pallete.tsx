@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { IPalette } from './models/IPalette';
-import { IExtendedPalette } from './models/IExtendedPalette';
+import { IExtendedPalette } from '../../../models/IExtendedPalette';
 import ColorBox from './ColorBox';
 
 import NavBar from './NavBar';
 import PaletteFooter from './PaletteFooter';
 import { withStyles, createStyles } from '@material-ui/styles';
-import { sizes } from './styles/sizes';
+import { sizes } from '../../../styles/sizes';
 
 const styles = createStyles({
   palette: { height: '100vh', overflow: 'hidden', minWidth:'310px'},

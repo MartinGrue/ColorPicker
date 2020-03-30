@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { generatePalette } from './ColorHelpers';
+import { generatePalette } from './features/utils/ColorHelpers';
 import './App.css';
-import SeedColors from './SeedColors';
+import SeedColors from './features/utils/SeedColors';
 import { Switch, Route } from 'react-router-dom';
-import PaletteList from './PaletteList';
-import Pallete from './Pallete';
+import PaletteList from './features/palette/screens/PaletteList';
+import Pallete from './features/palette/screens/Pallete';
 import { IPalette } from './models/IPalette';
-import SingleColorPalette from './SingleColorPalette';
-import NewPaletteForm from './NewPaletteForm';
+import SingleColorPalette from './features/palette/screens/SingleColorPalette';
+import NewPaletteForm from './features/form/NewPaletteForm';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import './App.css';
 

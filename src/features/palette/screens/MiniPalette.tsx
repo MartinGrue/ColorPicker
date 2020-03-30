@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { withStyles, createStyles } from '@material-ui/styles';
-import { IPalette } from './models/IPalette';
+import { IPalette } from '../../../models/IPalette';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = createStyles({

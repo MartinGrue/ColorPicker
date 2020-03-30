@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { IPalette } from './models/IPalette';
+import { IPalette } from '../../models/IPalette';
 import { Link } from 'react-router-dom';
 import { Picker, EmojiData, BaseEmoji } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';

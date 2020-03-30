@@ -2,7 +2,7 @@ import React from 'react';
 import { createStyles, withStyles } from '@material-ui/core/styles';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import { SortableElement } from 'react-sortable-hoc';
-import { sizes } from './styles/sizes';
+import { sizes } from '../../styles/sizes';
 const styles = createStyles({
   root: {
     width: '20%',
