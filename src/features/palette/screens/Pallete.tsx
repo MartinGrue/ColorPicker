@@ -11,8 +11,7 @@ const styles = createStyles({
   palette: { height: '100vh', overflow: 'hidden', minWidth:'310px'},
   paletteColors: {
     height: '90%',
-    [sizes.down('m')]: { height: '90%' },
-    [sizes.down('xs')]: { height: '83%' }
+
   },
   paletteFooter: {
     backgroundColor: 'white',
@@ -54,14 +53,14 @@ const Pallete: React.FC<PaletteProps> = ({ palette, classes }) => {
       <div className={classes.paletteColors}>
         {colors[level].map(color => (
           <ColorBox
-            key={color.id}
-            // background={Object.keys(color).find(p => p === format)!}
-            background={color[format]}
-            colorId={color.id}
-            paletteId={id}
-            name={color.name}
-            showLink={true}
-          ></ColorBox>
+          key={color.id}
+          // background={Object.keys(color).find(p => p === format)!}
+          background={color[format]}
+          colorId={color.id}
+          paletteId={id}
+          name={color.name}
+          showLink={true}
+        ></ColorBox>
         ))}
       </div>
       <PaletteFooter palette={palette}></PaletteFooter>

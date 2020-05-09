@@ -55,7 +55,8 @@ const styles = createStyles({
     backgroundColor: 'red',
     width: '20px',
     height: '20px',
-    opacity: 0
+    opacity: 0,
+    borderRadius: "5px"
   }
 });
 interface MiniPaletteProps {

@@ -1,73 +1,69 @@
-import React, { useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { IPalette } from '../../../models/IPalette';
-import MiniPalette from './MiniPalette';
-import { withStyles, createStyles } from '@material-ui/styles';
-import { Link } from 'react-router-dom';
-import { sizes } from '../../../styles/sizes';
-import bg from '../../../Rainbow-Vortex.svg';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Dialog from '@material-ui/core/Dialog';
-import { DialogTitle } from '@material-ui/core';
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
+import React, { useState } from "react";
+import { RouteComponentProps } from "react-router-dom";
+import { IPalette } from "../../../models/IPalette";
+import MiniPalette from "./MiniPalette";
+import { withStyles, createStyles } from "@material-ui/styles";
+import { Link } from "react-router-dom";
+import { sizes } from "../../../styles/sizes";
+import bg from "../../../Rainbow-Vortex.svg";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Dialog from "@material-ui/core/Dialog";
+import { DialogTitle } from "@material-ui/core";
+import List from "@material-ui/core/List";
+import ListItemText from "@material-ui/core/ListItemText";
 
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import ListItem from '@material-ui/core/ListItem';
-import CheckIcon from '@material-ui/icons/Check';
-import CloseIcon from '@material-ui/icons/Close';
-import blue from '@material-ui/core/colors/blue';
-import red from '@material-ui/core/colors/red';
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import ListItem from "@material-ui/core/ListItem";
+import CheckIcon from "@material-ui/icons/Check";
+import CloseIcon from "@material-ui/icons/Close";
+import blue from "@material-ui/core/colors/blue";
+import red from "@material-ui/core/colors/red";
 const styles = createStyles({
-  '@global': {
-    '.fade-exit': { opacity: 1 },
-    '.fade-exit-active': { opacity: 0, transition: 'opacity 500ms ease-out' }
+  "@global": {
+    ".fade-exit": { opacity: 1 },
+    ".fade-exit-active": { opacity: 0, transition: "opacity 500ms ease-out" },
   },
   root: {
-    overflow: 'scroll',
-    backgroundColor: '#ff7700',
+    overflow: "scroll",
+    backgroundColor: "#ff7700",
     backgroundImage: `url(${bg})`,
-    backgroundSize: 'cover',
-    height: '100vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-start'
+    backgroundSize: "cover",
+    height: "100vh",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "start",
   },
   container: {
-    width: '75%',
-    [sizes.down('l')]: { width: '75%', padding: '5%' },
-    [sizes.down('m')]: { width: '100%', padding: '5%' },
-    [sizes.down('xs')]: {},
-    display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    flexWrap: 'wrap'
+    width: "75%",
+    [sizes.down("l")]: { width: "75%", padding: "5%" },
+    [sizes.down("m")]: { width: "100%", padding: "5%" },
+    [sizes.down("xs")]: {},
   },
   nav: {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    color: 'white',
-    '& a': {
-      color: 'white'
-    }
+    display: "flex",
+    width: "100%",
+    justifyContent: "space-between",
+    alignItems: "center",
+    color: "white",
+    "& a": {
+      color: "white",
+    },
   },
   palettes: {
-    boxSizing: 'border-box',
-    width: '100%',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4,20%)',
-    [sizes.down('l')]: {
-      gridTemplateColumns: 'repeat(3,30%)',
-      gridGap: '3.5%'
+    boxSizing: "border-box",
+    width: "100%",
+    display: "grid",
+
+    gridTemplateColumns: "repeat(4,1fr)",
+    gridGap: "5%",
+    [sizes.down("l")]: {
+      gridTemplateColumns: "repeat(3,1fr)",
     },
-    [sizes.down('m')]: { gridTemplateColumns: 'repeat(3,30%)', gridGap: '3%' },
-    [sizes.down('xs')]: { gridTemplateColumns: 'repeat(2,45%)', gridGap: '2%' },
-    gridGap: '5%'
-  }
+    [sizes.down("m")]: { gridTemplateColumns: "repeat(3,1fr)" },
+    [sizes.down("xs")]: { gridTemplateColumns: "repeat(2,1fr)" },
+  },
 });
 
 interface ListProps extends RouteComponentProps {
@@ -79,7 +75,7 @@ const PaletteList: React.FC<ListProps> = ({
   history,
   palettes,
   classes,
-  setpalettes
+  setpalettes,
 }) => {
   const [dialogOpen, setdialogOpen] = useState(false);
   const [palleteToDelete, setpalleteToDelete] = useState<IPalette>();
@@ -94,8 +90,8 @@ const PaletteList: React.FC<ListProps> = ({
     history.push(`/palette/${id}`);
   };
   const deletePalette = () => {
-    console.log(palettes!.filter(p => p.id !== palleteToDelete!.id));
-    setpalettes(palettes!.filter(p => p.id !== palleteToDelete!.id));
+    // console.log(palettes!.filter(p => p.id !== palleteToDelete!.id));
+    setpalettes(palettes!.filter((p) => p.id !== palleteToDelete!.id));
     setdialogOpen(false);
   };
 
@@ -104,11 +100,11 @@ const PaletteList: React.FC<ListProps> = ({
       <div className={classes.container}>
         <nav className={classes.nav}>
           <h1>React Colors</h1>
-          <Link to='/palette/new'>New Palette</Link>
+          <Link to="/palette/new">New Palette</Link>
         </nav>
         <TransitionGroup className={classes.palettes}>
-          {palettes.map(palette => (
-            <CSSTransition key={palette.id} classNames='fade' timeout={500}>
+          {palettes.map((palette) => (
+            <CSSTransition key={palette.id} classNames="fade" timeout={500}>
               <MiniPalette
                 openParentDialog={openDialog}
                 palette={palette}
@@ -122,7 +118,7 @@ const PaletteList: React.FC<ListProps> = ({
         </TransitionGroup>
       </div>
       <Dialog open={dialogOpen}>
-        <DialogTitle id='delete-dialog-title'>Delete this palette?</DialogTitle>
+        <DialogTitle id="delete-dialog-title">Delete this palette?</DialogTitle>
         <List>
           <ListItem
             button
