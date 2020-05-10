@@ -11,18 +11,7 @@ import { WithStyles } from "@material-ui/core";
 const styles = createStyles({
   palette: { height: "100vh", overflow: "hidden" },
   paletteColors: { height: "90%" },
-  colorBox: {
-    width: "20%",
-    height: (props: any) => (props.showLink ? "25%" : "50%"),
-    margin: "0 auto",
-    display: "inline-block",
-    position: "relative",
-    cursor: "pointer",
-    marginBottom: "-4px",
-    "&:hover button": {
-      opacity: 1,
-    },
-  },
+
   goback: {
     backgroundColor: "#eceff1",
     display: "inline-block",
