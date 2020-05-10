@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ChromePicker from "react-color/lib/components/chrome/Chrome";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { Button, withStyles, createStyles } from "@material-ui/core";
+import { Button, withStyles, createStyles, WithStyles } from "@material-ui/core";
 
 const styles = () =>
   createStyles({
@@ -16,7 +16,7 @@ const styles = () =>
       marginTop: "2rem"
     }
   });
-interface ColoPickerFormProps {
+interface ColoPickerFormProps extends WithStyles<typeof styles> {
   currentColor: string;
   handlesetcurrentColor: (newColor: string) => void;
   colorObjs: {
@@ -31,7 +31,6 @@ interface ColoPickerFormProps {
       }[]
     >
   >;
-  classes: any;
 }
 
 const ColoPickerForm: React.FC<ColoPickerFormProps> = ({

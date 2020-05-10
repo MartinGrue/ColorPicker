@@ -8,7 +8,7 @@ import { sizes } from "../../../styles/sizes";
 import bg from "../../../Rainbow-Vortex.svg";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Dialog from "@material-ui/core/Dialog";
-import { DialogTitle } from "@material-ui/core";
+import { DialogTitle, WithStyles } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItemText from "@material-ui/core/ListItemText";
 
@@ -66,9 +66,8 @@ const styles = createStyles({
   },
 });
 
-interface ListProps extends RouteComponentProps {
+interface ListProps extends RouteComponentProps, WithStyles<typeof styles> {
   palettes: IPalette[];
-  classes: any;
   setpalettes: React.Dispatch<React.SetStateAction<IPalette[]>>;
 }
 const PaletteList: React.FC<ListProps> = ({

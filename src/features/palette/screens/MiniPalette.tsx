@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { withStyles, createStyles } from '@material-ui/styles';
 import { IPalette } from '../../../models/IPalette';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { WithStyles } from '@material-ui/core';
 
 const styles = createStyles({
   root: {
@@ -59,8 +60,7 @@ const styles = createStyles({
     borderRadius: "5px"
   }
 });
-interface MiniPaletteProps {
-  classes: any;
+interface MiniPaletteProps extends WithStyles<typeof styles>  {
   palette: IPalette;
   goToPalette: (id: string) => void;
   openParentDialog: (palette: IPalette) => void;

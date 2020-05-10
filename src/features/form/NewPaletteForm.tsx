@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import { Theme, createStyles, withStyles } from "@material-ui/core/styles";
+import {
+  Theme,
+  createStyles,
+  withStyles,
+  WithStyles,
+} from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 
 import Typography from "@material-ui/core/Typography";
@@ -9,7 +14,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Button } from "@material-ui/core";
 import { IPalette } from "../../models/IPalette";
-import { RouteComponentProps} from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import DragableColorList from "../palette/screens/DragableColorList";
 import { arrayMove } from "react-sortable-hoc";
 import PaletteFormNav from "./PaletteFormNav";
@@ -21,27 +26,26 @@ const drawerWidth = 400;
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      display: "flex"
+      display: "flex",
     },
-
     hide: {
-      display: "none"
+      display: "none",
     },
     drawer: {
       [sizes.down("m")]: { width: drawerWidth - 100, textAlign: "center" },
-      width: drawerWidth
+      width: drawerWidth,
     },
     drawerPaper: {
       [sizes.down("m")]: { width: drawerWidth - 100 },
       [sizes.down("xs")]: { width: "100%" },
-      width: drawerWidth
+      width: drawerWidth,
     },
     drawerHeader: {
       display: "flex",
       alignItems: "center",
       padding: theme.spacing(0, 1),
       ...theme.mixins.toolbar,
-      justifyContent: "flex-end"
+      justifyContent: "flex-end",
     },
     content: {
       overflow: "hidden",
@@ -50,17 +54,17 @@ const styles = (theme: Theme) =>
       padding: theme.spacing(3),
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen
+        duration: theme.transitions.duration.leavingScreen,
       }),
       [sizes.down("m")]: { marginLeft: -drawerWidth + 100 },
-      marginLeft: -drawerWidth
+      marginLeft: -drawerWidth,
     },
     contentShift: {
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen
+        duration: theme.transitions.duration.enteringScreen,
       }),
-      marginLeft: 0
+      marginLeft: 0,
     },
     drawerContainer: {
       width: "90%",
@@ -69,17 +73,18 @@ const styles = (theme: Theme) =>
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      height: "100%"
+      height: "100%",
     },
     drawerBtns: {
-      width: "100%"
+      width: "100%",
     },
     btn: {
-      width: "50%"
-    }
+      width: "50%",
+    },
   });
-interface NewPaletteFormProps extends RouteComponentProps {
-  classes: any;
+interface NewPaletteFormProps
+  extends RouteComponentProps,
+    WithStyles<typeof styles> {
   savePalette: (newpalette: IPalette) => void;
   palettes: IPalette[];
 }
@@ -87,13 +92,13 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
   classes,
   savePalette,
   history,
-  palettes
+  palettes,
 }) => {
   const [colorObjs, setcolorObjs] = useState<{ name: string; color: string }[]>(
     [
       { name: "red", color: "#F44336" },
       { name: "pink", color: "#E91E63" },
-      { name: "purple", color: "#9C27B0" }
+      { name: "purple", color: "#9C27B0" },
     ]
   );
 
@@ -112,7 +117,7 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
     setcolorObjs([]);
   };
   const deleteColor = (name: string) => {
-    setcolorObjs(colorObjs.filter(p => p.name !== name));
+    setcolorObjs(colorObjs.filter((p) => p.name !== name));
   };
   const localsavePalette = (newPaletteName: string, emoji: BaseEmoji) => {
     let paletteName = newPaletteName || "New test Palette";
@@ -120,19 +125,19 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
       paletteName: paletteName,
       colors: colorObjs,
       id: paletteName.toLowerCase().replace(/ /g, "-"),
-      emoji: emoji.native
+      emoji: emoji.native,
     };
     savePalette(newPalette);
     history.push("/");
   };
 
   const selectColor = (name: string) => {
-    const selectedColor = colorObjs.find(p => p.name === name);
+    const selectedColor = colorObjs.find((p) => p.name === name);
     setcurrentColor(selectedColor!.color);
   };
   const onSortEnd = ({
     oldIndex,
-    newIndex
+    newIndex,
   }: {
     oldIndex: any;
     newIndex: any;
@@ -140,7 +145,7 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
     setcolorObjs(arrayMove(colorObjs, oldIndex, newIndex));
   };
   const isunique = (name: string) => {
-    return colorObjs.filter(obj => obj.name === name).length > 0;
+    return colorObjs.filter((obj) => obj.name === name).length > 0;
   };
   const addRandomColor = (): string => {
     const letters = "0123456789ABCDEF";
@@ -148,7 +153,7 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
     for (var i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
-    while (colorObjs.filter(obj => obj.color === color).length > 0) {
+    while (colorObjs.filter((obj) => obj.color === color).length > 0) {
       color = "#";
       color += letters[Math.floor(Math.random() * 16)];
     }
@@ -178,7 +183,7 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
         anchor="left"
         open={open}
         classes={{
-          paper: classes.drawerPaper
+          paper: classes.drawerPaper,
         }}
       >
         <div className={classes.drawerHeader}>
@@ -188,7 +193,7 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
         </div>
         <Divider />
         <div className={classes.drawerContainer}>
-          <Typography variant="h4" gutterBottom className={classes.heading}>
+          <Typography variant="h4" gutterBottom>
             Design your palette
           </Typography>
           <div className={classes.drawerBtns}>
@@ -224,7 +229,7 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: open
+          [classes.contentShift]: open,
         })}
       >
         <div className={classes.drawerHeader} />

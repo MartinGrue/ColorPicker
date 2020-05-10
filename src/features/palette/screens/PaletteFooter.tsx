@@ -1,25 +1,24 @@
-import React from 'react';
-import { withStyles, createStyles } from '@material-ui/styles';
+import React from "react";
+import { withStyles, createStyles } from "@material-ui/styles";
 
-import { IExtendedPalette } from '../../../models/IExtendedPalette';
+import { IExtendedPalette } from "../../../models/IExtendedPalette";
+import { WithStyles } from "@material-ui/core";
 const styles = createStyles({
- 
   paletteFooter: {
-    backgroundColor: 'white',
-    height: '5vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    fontWeight: 'bold'
+    backgroundColor: "white",
+    height: "5vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    fontWeight: "bold",
   },
   emoji: {
-    fontSize: '1rem',
-    margin: '0 1 rem'
-  }
+    fontSize: "1rem",
+    margin: "0 1 rem",
+  },
 });
-interface PaletteFooterProps {
+interface PaletteFooterProps extends WithStyles<typeof styles> {
   palette: IExtendedPalette;
-  classes:any;
 }
 const PaletteFooter: React.FC<PaletteFooterProps> = ({ palette, classes }) => {
   return (

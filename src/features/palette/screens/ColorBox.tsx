@@ -3,14 +3,15 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 import styles from '../../../styles/ColorBoxStyles'
 import { withStyles } from '@material-ui/styles';
+import { WithStyles } from '@material-ui/core';
 
-interface ColorBoxProps {
+interface ColorBoxProps extends WithStyles<typeof styles> {
   paletteId?: string;
   name: string;
   background: string;
   colorId?: string;
   showLink: boolean;
-  classes: any;
+
 }
 const ColorBox: React.FC<ColorBoxProps> = ({
   paletteId,
