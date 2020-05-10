@@ -101,7 +101,12 @@ const SingleColorPalette: React.FC<SingleColorPaletteProps> = ({
 
   const shades: shades[] = gatherShades(palette, colorId);
 
-  const handleChange = (e: any) => {
+  const handleChange = (
+    e: React.ChangeEvent<{
+      name?: string | undefined;
+      value: string;
+    }>
+  ) => {
     setformat(e.target.value);
   };
   return (

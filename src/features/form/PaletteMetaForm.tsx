@@ -29,7 +29,7 @@ const PaletteMetaForm: React.FC<PaletteMetaFormProps> = ({
 }) => {
   const [newPaletteName, setnewPaletteName] = useState('');
 
-  const handleClose = (reason: any) => {
+  const handleClose = (reason: "backdropClick" | "escapeKeyDown") => {
     console.log(reason);
     setmodalstage('emojiStage');
   };

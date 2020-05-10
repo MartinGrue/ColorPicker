@@ -139,8 +139,8 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
     oldIndex,
     newIndex,
   }: {
-    oldIndex: any;
-    newIndex: any;
+    oldIndex: number;
+    newIndex: number;
   }) => {
     setcolorObjs(arrayMove(colorObjs, oldIndex, newIndex));
   };

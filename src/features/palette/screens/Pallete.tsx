@@ -34,7 +34,12 @@ const Pallete: React.FC<PaletteProps> = ({ palette, classes }) => {
   const [format, setformat] = useState<string>("hex");
   const { colors, id } = palette;
 
-  const handleChange = (e: any) => {
+  const handleChange = (
+    e: React.ChangeEvent<{
+      name?: string | undefined;
+      value: string;
+    }>
+  ) => {
     setformat(e.target.value);
   };
   const changeLevel = (level: number) => {
@@ -45,7 +50,12 @@ const Pallete: React.FC<PaletteProps> = ({ palette, classes }) => {
       <NavBar
         level={level}
         changeLevel={changeLevel}
-        handleChange={handleChange}
+        handleChange={(
+          e: React.ChangeEvent<{
+            name?: string | undefined;
+            value: string;
+          }>
+        ) => handleChange(e)}
         format={format}
         showSlider={true}
       ></NavBar>

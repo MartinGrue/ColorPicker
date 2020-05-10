@@ -82,8 +82,13 @@ const styles = createStyles({
 });
 interface NavBarProps extends WithStyles<typeof styles> {
   level?: number;
-  changeLevel?: any;
-  handleChange: any;
+  changeLevel?: (value: number) => void;
+  handleChange: (
+    e: React.ChangeEvent<{
+      name?: string | undefined;
+      value: string;
+    }>
+  ) => void;
   format: string;
   showSlider: boolean;
 }
@@ -96,12 +101,21 @@ const NavBar: React.FC<NavBarProps> = ({
   classes,
 }) => {
   const [open, setopen] = useState(false);
-  const handleFormatChange = (e: any) => {
+  const handleFormatChange = (
+    e: React.ChangeEvent<{
+      name?: string | undefined;
+      value: string;
+    }>
+  ) => {
     handleChange(e);
   };
   const handleCloseSnackBar = () => {
     setopen(false);
   };
+
+  function testForString(value: unknown): string {
+    return String(value);
+  }
   return (
     <header className={classes.navBar}>
       <div className={classes.logo}>
@@ -122,7 +136,19 @@ const NavBar: React.FC<NavBarProps> = ({
         </div>
       )}
       <div className={classes.selectContainer}>
-        <Select value={format} onChange={handleFormatChange}>
+        <Select
+          value={format}
+          onChange={(
+            event: React.ChangeEvent<{ name?: string; value: unknown }>
+          ) =>
+            handleFormatChange(
+              event as React.ChangeEvent<{
+                name?: string | undefined;
+                value: string;
+              }>
+            )
+          }
+        >
           <MenuItem value="hex">HEX - #ffffff</MenuItem>
           <MenuItem value="rgb">RGB - rgb(255, 255, 255)</MenuItem>
           <MenuItem value="rgba">RGBA - rgba(255, 255, 255, 1.0)</MenuItem>
