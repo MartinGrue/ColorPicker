@@ -25,7 +25,8 @@ const styles = createStyles({
     ".fade-exit-active": { opacity: 0, transition: "opacity 500ms ease-out" },
   },
   root: {
-    overflow: "scroll",
+    overflowY: "scroll",
+    overflowX: "hidden",
     backgroundImage: `url(${bg})`,
     backgroundSize: "cover",
     height: "100vh",
