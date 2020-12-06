@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { IExtendedPalette } from "../../../models/IExtendedPalette";
-import ColorBox from "./ColorBox";
-
-import NavBar from "./NavBar";
-import PaletteFooter from "./PaletteFooter";
+import NavBar from "../../components/NavBar";
 import { withStyles, createStyles } from "@material-ui/styles";
-import { sizes } from "../../../styles/sizes";
 import { WithStyles } from "@material-ui/core";
+import ColorBox from "../../components/ColorBox";
+import PaletteFooter from "../../components/PaletteFooter";
+import { IExtendedPalette } from "../../models/IExtendedPalette";
 
 const styles = createStyles({
   palette: { height: "100vh", minWidth: "310px", overflow: "hidden" },
@@ -30,7 +28,7 @@ const styles = createStyles({
 interface PaletteProps extends WithStyles<typeof styles> {
   palette: IExtendedPalette;
 }
-const Pallete: React.FC<PaletteProps> = ({ palette, classes }) => {
+const MultiColorPalette: React.FC<PaletteProps> = ({ palette, classes }) => {
   const [level, setlevel] = useState<number>(500);
   const [format, setformat] = useState<string>("hex");
   const { colors, id } = palette;
@@ -62,7 +60,6 @@ const Pallete: React.FC<PaletteProps> = ({ palette, classes }) => {
           showSlider={true}
         ></NavBar>
       </div>
-
       <div className={classes.paletteColors}>
         {colors[level].map((color) => (
           <ColorBox
@@ -81,4 +78,4 @@ const Pallete: React.FC<PaletteProps> = ({ palette, classes }) => {
   );
 };
 
-export default withStyles(styles)(Pallete);
+export default withStyles(styles)(MultiColorPalette);

@@ -1,6 +1,6 @@
-import React from 'react';
-import { SortableContainer } from 'react-sortable-hoc';
-import DragableColorBox from '../../form/DragableColorBox';
+import React from "react";
+import { SortableContainer } from "react-sortable-hoc";
+import DragableColorBox from "./DragableColorBox";
 
 interface DragableColorListProps {
   colorObjs: { name: string; color: string }[];
@@ -8,10 +8,10 @@ interface DragableColorListProps {
   deleteColor: (name: string) => void;
 }
 
-const DragableColorList = SortableContainer<DragableColorListProps>(
+const NewPaletteColorList = SortableContainer<DragableColorListProps>(
   ({ colorObjs, selectColor, deleteColor }: DragableColorListProps) => {
     return (
-      <div style={{ height: '100%' }}>
+      <div style={{ height: "100%" }}>
         {colorObjs.map((colorObj: { name: string; color: string }, i) => (
           <DragableColorBox
             index={i}
@@ -26,4 +26,4 @@ const DragableColorList = SortableContainer<DragableColorListProps>(
     );
   }
 );
-export default DragableColorList;
+export default NewPaletteColorList;

@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { IPalette } from "../../../models/IPalette";
-import MiniPalette from "./MiniPalette";
 import { withStyles, createStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
-import { sizes } from "../../../styles/sizes";
-import bg from "../../../Rainbow-Vortex.svg";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Dialog from "@material-ui/core/Dialog";
 import { DialogTitle, WithStyles } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItemText from "@material-ui/core/ListItemText";
-
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ListItem from "@material-ui/core/ListItem";
@@ -19,6 +14,10 @@ import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 import blue from "@material-ui/core/colors/blue";
 import red from "@material-ui/core/colors/red";
+import { IPalette } from "../../models/IPalette";
+import { sizes } from "../../styles/sizes";
+import MiniPalette from "./MiniPalette";
+import bg from "../../Rainbow-Vortex.svg"
 const styles = createStyles({
   "@global": {
     ".fade-exit": { opacity: 1 },
@@ -70,7 +69,7 @@ interface ListProps extends RouteComponentProps, WithStyles<typeof styles> {
   palettes: IPalette[];
   setpalettes: React.Dispatch<React.SetStateAction<IPalette[]>>;
 }
-const PaletteList: React.FC<ListProps> = ({
+const Home: React.FC<ListProps> = ({
   history,
   palettes,
   classes,
@@ -152,4 +151,4 @@ const PaletteList: React.FC<ListProps> = ({
   );
 };
 
-export default withStyles(styles)(PaletteList);
+export default withStyles(styles)(Home);

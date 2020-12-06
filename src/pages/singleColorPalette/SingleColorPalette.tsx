@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { IExtendedPalette } from "../../../models/IExtendedPalette";
-import ColorBox from "./ColorBox";
-import NavBar from "./NavBar";
-import PaletteFooter from "./PaletteFooter";
+
 import { Link } from "react-router-dom";
 import { withStyles, createStyles } from "@material-ui/styles";
-import { sizes } from "../../../styles/sizes";
 import { WithStyles } from "@material-ui/core";
+import ColorBox from "../../components/ColorBox";
+import NavBar from "../../components/NavBar";
+import PaletteFooter from "../../components/PaletteFooter";
+import { IExtendedPalette } from "../../models/IExtendedPalette";
+import { sizes } from "../../styles/sizes";
 
 const styles = createStyles({
   palette: { height: "100vh", overflow: "hidden" },
-  paletteColors: { height: "90%" },
-
+  navbar: { height: "5vh" },
+  paletteColors: { height: "90vh" },
   goback: {
     backgroundColor: "#eceff1",
     display: "inline-block",
@@ -100,11 +101,13 @@ const SingleColorPalette: React.FC<SingleColorPaletteProps> = ({
   };
   return (
     <div className={classes.palette}>
-      <NavBar
-        format={format}
-        handleChange={handleChange}
-        showSlider={false}
-      ></NavBar>
+      <div className={classes.navbar}>
+        <NavBar
+          format={format}
+          handleChange={handleChange}
+          showSlider={false}
+        ></NavBar>
+      </div>
       <div className={classes.paletteColors}>
         {shades.map((color) => (
           <ColorBox

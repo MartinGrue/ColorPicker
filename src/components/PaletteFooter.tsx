@@ -1,8 +1,7 @@
 import React from "react";
 import { withStyles, createStyles } from "@material-ui/styles";
-
-import { IExtendedPalette } from "../../../models/IExtendedPalette";
 import { WithStyles } from "@material-ui/core";
+import { IExtendedPalette } from "../models/IExtendedPalette";
 const styles = createStyles({
   paletteFooter: {
     backgroundColor: "white",

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { generatePalette } from "./features/utils/ColorHelpers";
-import SeedColors from "./features/utils/SeedColors";
+import { generatePalette } from "./utils/ColorHelpers";
+import SeedColors from "./utils/SeedColors";
 import { Switch, Route } from "react-router-dom";
-import PaletteList from "./features/palette/screens/PaletteList";
-import Pallete from "./features/palette/screens/Pallete";
 import { IPalette } from "./models/IPalette";
-import SingleColorPalette from "./features/palette/screens/SingleColorPalette";
-import NewPaletteForm from "./features/form/NewPaletteForm";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Home from "./pages/home/Home";
+import MultiColorPalette from "./pages/multiColorPalette/MultiColorPalette";
+import SingleColorPalette from "./pages/singleColorPalette/SingleColorPalette";
+import NewPalette from "./pages/newPalett/NewPalette";
 
 const seedColors: IPalette[] = SeedColors;
 
@@ -42,17 +42,17 @@ const App: React.FC = () => {
     <Route
       render={({ location }) => (
         <TransitionGroup>
-          <CSSTransition classNames="fade" timeout={500} key={location.key}>
+          <CSSTransition timeout={400} classNames="fade" key={location.key}>
             <Switch location={location}>
               <Route
                 path="/palette/new"
                 exact
                 render={(routeProps) => (
-                  <NewPaletteForm
+                  <NewPalette
                     {...routeProps}
                     savePalette={savePalette}
                     palettes={palettes}
-                  ></NewPaletteForm>
+                  ></NewPalette>
                 )}
               ></Route>
               <Route
@@ -69,33 +69,34 @@ const App: React.FC = () => {
               ></Route>
               <Route
                 exact
-                path="/"
+                path="/palette/:id"
                 render={(routeProps) => (
-                  <PaletteList
-                    {...routeProps}
-                    palettes={palettes}
-                    setpalettes={setpalettes}
-                  ></PaletteList>
+                  <MultiColorPalette
+                    palette={generatePalette(
+                      findPalette(routeProps.match.params.id)!
+                    )}
+                  ></MultiColorPalette>
                 )}
               ></Route>
               <Route
                 exact
-                path="/palette/:id"
+                path={"/"}
                 render={(routeProps) => (
-                    <Pallete
-                      palette={generatePalette(
-                        findPalette(routeProps.match.params.id)!
-                      )}
-                    ></Pallete>
+                  <Home
+                    {...routeProps}
+                    palettes={palettes}
+                    setpalettes={setpalettes}
+                  ></Home>
                 )}
               ></Route>
               <Route
+                path={"/(.+)"}
                 render={(routeProps) => (
-                    <PaletteList
-                      {...routeProps}
-                      palettes={palettes}
-                      setpalettes={setpalettes}
-                    ></PaletteList>
+                  <Home
+                    {...routeProps}
+                    palettes={palettes}
+                    setpalettes={setpalettes}
+                  ></Home>
                 )}
               ></Route>
             </Switch>

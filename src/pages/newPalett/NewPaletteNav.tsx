@@ -1,26 +1,18 @@
 import React, { Fragment, useState } from "react";
 import clsx from "clsx";
-
-import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { IPalette } from "../../models/IPalette";
 import { Theme, createStyles, withStyles } from "@material-ui/core/styles";
-import PaletteMetaForm from "./PaletteMetaForm";
 import { BaseEmoji } from "emoji-mart";
 import { sizes } from "../../styles/sizes";
-import {
-  CreateCSSProperties,
-  WithStyles,
-} from "@material-ui/core/styles/withStyles";
-
+import { WithStyles } from "@material-ui/core/styles/withStyles";
+import NewPaletteModal from "./NewPaletteModal";
 const styles = (theme: Theme) =>
   createStyles({
     hide: {
@@ -68,7 +60,6 @@ const PaletteFormNav: React.FC<PaletteFormNavProps> = ({
 
   return (
     <Fragment>
-      <CssBaseline />
       <AppBar
         color="default"
         position={"sticky"}
@@ -109,12 +100,12 @@ const PaletteFormNav: React.FC<PaletteFormNavProps> = ({
         </Toolbar>
       </AppBar>
       {setmodalstage && (
-        <PaletteMetaForm
+        <NewPaletteModal
           modalstage={modalstage}
           setmodalstage={setmodalstage}
           palettes={palettes}
           localsavePalette={localsavePalette}
-        ></PaletteMetaForm>
+        ></NewPaletteModal>
       )}
     </Fragment>
   );

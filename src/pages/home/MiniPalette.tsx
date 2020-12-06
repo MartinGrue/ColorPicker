@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { withStyles, createStyles } from '@material-ui/styles';
-import { IPalette } from '../../../models/IPalette';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { WithStyles } from '@material-ui/core';
+import { IPalette } from '../../models/IPalette';
 
 const styles = createStyles({
   root: {

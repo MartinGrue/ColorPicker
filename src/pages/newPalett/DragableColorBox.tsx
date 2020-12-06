@@ -31,7 +31,7 @@ const styles = createStyles({
     height: "100%",
     left: "0",
     bottom: "0",
-    padding: "2%",
+
     color: "rgba(0,0,0,0.5)",
     letterSpacing: "1px",
     textTransform: "uppercase",

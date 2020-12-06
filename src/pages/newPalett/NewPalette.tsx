@@ -7,21 +7,21 @@ import {
   WithStyles,
 } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Button } from "@material-ui/core";
 import { IPalette } from "../../models/IPalette";
-import { RouteComponentProps } from "react-router-dom";
-import DragableColorList from "../palette/screens/DragableColorList";
+import { Link, RouteComponentProps } from "react-router-dom";
 import { arrayMove } from "react-sortable-hoc";
-import PaletteFormNav from "./PaletteFormNav";
-import ColoPickerForm from "./ColorPickerForm";
 import { BaseEmoji } from "emoji-mart";
 import { sizes } from "../../styles/sizes";
 import namer from "color-namer";
+import NewPaletteColorList from "./NewPaletteColorList";
+import NewPaletteNav from "./NewPaletteNav";
+import ColoPicker from "./ColorPicker";
+
 const drawerWidth = 400;
 const styles = (theme: Theme) =>
   createStyles({
@@ -84,16 +84,14 @@ const styles = (theme: Theme) =>
       width: "50%",
     },
   });
-interface NewPaletteFormProps
-  extends RouteComponentProps,
-    WithStyles<typeof styles> {
+interface NewPaletteFormProps extends WithStyles<typeof styles> {
   savePalette: (newpalette: IPalette) => void;
   palettes: IPalette[];
 }
-const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
+const NewPalette: React.FC<NewPaletteFormProps> = ({
   classes,
   savePalette,
-  history,
+  // history,
   palettes,
 }) => {
   const [colorObjs, setcolorObjs] = useState<{ name: string; color: string }[]>(
@@ -130,7 +128,7 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
       emoji: emoji.native,
     };
     savePalette(newPalette);
-    history.push("/");
+    // history.push("/");
   };
 
   const selectColor = (name: string) => {
@@ -215,32 +213,32 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
               Random Color
             </Button>
           </div>
-          <ColoPickerForm
+          <ColoPicker
             currentColor={currentColor}
             handlesetcurrentColor={handlesetcurrentColor}
             colorObjs={colorObjs}
             setcolorObjs={setcolorObjs}
-          ></ColoPickerForm>
+          ></ColoPicker>
         </div>
       </Drawer>
       <main className={clsx(classes.content, open && classes.contentShift)}>
-        <PaletteFormNav
+        <NewPaletteNav
           open={open}
           setOpen={setOpen}
           localsavePalette={localsavePalette}
           palettes={palettes}
-        ></PaletteFormNav>
-        <DragableColorList
+        ></NewPaletteNav>
+        <NewPaletteColorList
           selectColor={selectColor}
           deleteColor={deleteColor}
           colorObjs={colorObjs}
           axis="xy"
           onSortEnd={onSortEnd}
           pressDelay={100}
-        ></DragableColorList>
+        ></NewPaletteColorList>
       </main>
     </div>
   );
 };
 
-export default withStyles(styles, { withTheme: true })(NewPaletteForm);
+export default withStyles(styles, { withTheme: true })(NewPalette);
