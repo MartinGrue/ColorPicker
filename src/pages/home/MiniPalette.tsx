@@ -1,66 +1,72 @@
-import React, { useEffect, useState } from 'react';
-import { withStyles, createStyles } from '@material-ui/styles';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { WithStyles } from '@material-ui/core';
-import { IPalette } from '../../models/IPalette';
+import React, { useEffect, useState } from "react";
+import { withStyles, createStyles } from "@material-ui/styles";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { WithStyles } from "@material-ui/core";
+import { IPalette } from "../../models/IPalette";
 
 const styles = createStyles({
   root: {
-    backgroundColor: 'white',
-    border: '1px solid black',
-    borderRadius: '5px',
-    position: 'relative',
-    overflow: 'hidden',
-    padding: '5px',
-    cursor: 'pointer',
-    '&:hover svg': {
-      opacity: 1
-    }
+    backgroundColor: "white",
+    border: "1px solid black",
+    borderRadius: "5px",
+    position: "relative",
+    overflow: "hidden",
+    padding: "5px",
+    cursor: "pointer",
+    "&:hover svg": {
+      opacity: 1,
+    },
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   colors: {
-    backgroundColor: '#dae1e4',
+    marginBottom: "auto",
+    backgroundColor: "#dae1e4",
     height: '150px',
-    width: '100%',
-    borderRadius: '5px',
-    overflow: 'hidden'
+    // flexGrow: 2,
+    // width: "100%",
+    borderRadius: "5px",
+    overflow: "hidden",
   },
   title: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    margin: '0',
-    color: 'black',
-    paddingTop: '1rem',
-    fontSize: '1rem',
-    position: 'relative'
+    flexGrow: 1,
+    display: "flex",
+    justifyContent: "space-between",
+    margin: "0",
+    color: "black",
+    paddingTop: "1rem",
+    fontSize: "1rem",
+    position: "relative",
   },
   emoji: {
-    marginLeft: '.5rem',
-    fontSize: '1.5rem'
+    marginLeft: ".5rem",
+    fontSize: "1.5rem",
   },
   minicolor: {
-    height: '25%',
-    width: '20%',
-    display: 'inline-block',
-    margin: '0 auto',
-    postion: 'relative',
-    marginBottom: '-4px'
+    height: "25%",
+    width: "20%",
+    display: "inline-block",
+    margin: "0 auto",
+    postion: "relative",
+    marginBottom: "-4px",
   },
   delete: {},
   deleteIcon: {
-    top: '0px',
-    right: '0px',
-    position: 'absolute',
-    padding: '5px',
+    top: "0px",
+    right: "0px",
+    position: "absolute",
+    padding: "5px",
     zIndex: 10,
-    color: 'white',
-    backgroundColor: 'red',
-    width: '20px',
-    height: '20px',
+    color: "white",
+    backgroundColor: "red",
+    width: "20px",
+    height: "20px",
     opacity: 0,
-    borderRadius: "5px"
-  }
+    borderRadius: "5px",
+  },
 });
-interface MiniPaletteProps extends WithStyles<typeof styles>  {
+interface MiniPaletteProps extends WithStyles<typeof styles> {
   palette: IPalette;
   goToPalette: (id: string) => void;
   openParentDialog: (palette: IPalette) => void;
@@ -74,19 +80,24 @@ const PropsAreEqual = (
 const MiniPalette: React.FC<MiniPaletteProps> = React.memo(
   ({ classes, palette, openParentDialog, goToPalette }) => {
     return (
-      <div className={classes.root} onClick={() => {goToPalette(palette.id)}}>
+      <div
+        className={classes.root}
+        onClick={() => {
+          goToPalette(palette.id);
+        }}
+      >
         <div className={classes.delete}>
           <DeleteIcon
             className={classes.deleteIcon}
-            style={{ transition: 'all 0.3s ease-in-out' }}
-            onClick={e => {
+            style={{ transition: "all 0.3s ease-in-out" }}
+            onClick={(e) => {
               openParentDialog(palette);
               e.stopPropagation();
             }}
           ></DeleteIcon>
         </div>
         <div className={classes.colors}>
-          {palette.colors.map(color => (
+          {palette.colors.map((color) => (
             <div
               className={classes.minicolor}
               key={color.name}
@@ -100,6 +111,7 @@ const MiniPalette: React.FC<MiniPaletteProps> = React.memo(
         </h5>
       </div>
     );
-  }, PropsAreEqual
+  },
+  PropsAreEqual
 );
 export default withStyles(styles)(MiniPalette);

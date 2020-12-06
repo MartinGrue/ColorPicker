@@ -17,7 +17,7 @@ import red from "@material-ui/core/colors/red";
 import { IPalette } from "../../models/IPalette";
 import { sizes } from "../../styles/sizes";
 import MiniPalette from "./MiniPalette";
-import bg from "../../Rainbow-Vortex.svg"
+import bg from "../../Rainbow-Vortex.svg";
 const styles = createStyles({
   "@global": {
     ".fade-exit": { opacity: 1 },
@@ -54,14 +54,14 @@ const styles = createStyles({
     boxSizing: "border-box",
     width: "100%",
     display: "grid",
-
+    gridGap: "2%",
     gridTemplateColumns: "repeat(4,1fr)",
-    gridGap: "5%",
+    padding: "10px",
     [sizes.down("l")]: {
       gridTemplateColumns: "repeat(3,1fr)",
     },
     [sizes.down("m")]: { gridTemplateColumns: "repeat(3,1fr)" },
-    [sizes.down("xs")]: { gridTemplateColumns: "repeat(2,1fr)" },
+    [sizes.down("xs")]: { gridTemplateColumns: "repeat(1,1fr)" },
   },
 });
 
@@ -100,20 +100,18 @@ const Home: React.FC<ListProps> = ({
           <h1>React Colors</h1>
           <Link to="/palette/new">New Palette</Link>
         </nav>
-        <TransitionGroup className={classes.palettes}>
+        <div className={classes.palettes}>
           {palettes.map((palette) => (
-            <CSSTransition key={palette.id} classNames="fade" timeout={500}>
-              <MiniPalette
-                openParentDialog={openDialog}
-                palette={palette}
-                goToPalette={goToPalette}
-                key={palette.paletteName}
-              >
-                {palette.paletteName}
-              </MiniPalette>
-            </CSSTransition>
+            <MiniPalette
+              openParentDialog={openDialog}
+              palette={palette}
+              goToPalette={goToPalette}
+              key={palette.paletteName}
+            >
+              {palette.paletteName}
+            </MiniPalette>
           ))}
-        </TransitionGroup>
+        </div>
       </div>
       <Dialog open={dialogOpen}>
         <DialogTitle id="delete-dialog-title">Delete this palette?</DialogTitle>
