@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import { Link } from 'react-router-dom';
-import styles from '../../../styles/ColorBoxStyles'
-import { withStyles } from '@material-ui/styles';
-import { WithStyles } from '@material-ui/core';
+import React, { useState } from "react";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { Link } from "react-router-dom";
+import { default as styles } from "../../../styles/ColorBoxStyles";
+import { withStyles } from "@material-ui/styles";
+import { WithStyles } from "@material-ui/core";
 
 interface ColorBoxProps extends WithStyles<typeof styles> {
   paletteId?: string;
@@ -11,7 +11,6 @@ interface ColorBoxProps extends WithStyles<typeof styles> {
   background: string;
   colorId?: string;
   showLink: boolean;
-
 }
 const ColorBox: React.FC<ColorBoxProps> = ({
   paletteId,
@@ -19,7 +18,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({
   name,
   colorId,
   showLink,
-  classes
+  classes,
 }) => {
   const [copied, setcopied] = useState(false);
 
@@ -36,7 +35,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({
       <div
         className={classes.colorBox}
         style={{
-          background
+          background,
         }}
       >
         <div
@@ -44,8 +43,9 @@ const ColorBox: React.FC<ColorBoxProps> = ({
           style={{ background }}
         ></div>
         <div
-          className={`${classes.copyMessage} ${copied &&
-            classes.copyMessageShow}`}
+          className={`${classes.copyMessage} ${
+            copied && classes.copyMessageShow
+          }`}
         >
           <h1 className={classes.copyText}>Copied!</h1>
           <p className={classes.copyText}>{background}</p>
@@ -59,7 +59,7 @@ const ColorBox: React.FC<ColorBoxProps> = ({
         {showLink && (
           <Link
             to={`/palette/${paletteId}/${colorId}`}
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
             }}
           >

@@ -27,6 +27,7 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
+      flexDirection: "row",
     },
     hide: {
       display: "none",
@@ -48,11 +49,12 @@ const styles = (theme: Theme) =>
       justifyContent: "flex-end",
     },
     content: {
-      overflow: "hidden",
       flexGrow: 1,
+      display: "flex",
+      flexDirection: "column",
       height: "100vh",
-      padding: theme.spacing(3),
-      transition: theme.transitions.create("margin", {
+
+      transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
@@ -60,7 +62,7 @@ const styles = (theme: Theme) =>
       marginLeft: -drawerWidth,
     },
     contentShift: {
-      transition: theme.transitions.create("margin", {
+      transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
@@ -171,12 +173,6 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
 
   return (
     <div className={classes.root}>
-      <PaletteFormNav
-        open={open}
-        setOpen={setOpen}
-        localsavePalette={localsavePalette}
-        palettes={palettes}
-      ></PaletteFormNav>
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -227,12 +223,13 @@ const NewPaletteForm: React.FC<NewPaletteFormProps> = ({
           ></ColoPickerForm>
         </div>
       </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className={classes.drawerHeader} />
+      <main className={clsx(classes.content, open && classes.contentShift)}>
+        <PaletteFormNav
+          open={open}
+          setOpen={setOpen}
+          localsavePalette={localsavePalette}
+          palettes={palettes}
+        ></PaletteFormNav>
         <DragableColorList
           selectColor={selectColor}
           deleteColor={deleteColor}

@@ -9,9 +9,10 @@ import { sizes } from "../../../styles/sizes";
 import { WithStyles } from "@material-ui/core";
 
 const styles = createStyles({
-  palette: { height: "100vh", overflow: "hidden", minWidth: "310px" },
+  palette: { height: "100vh", minWidth: "310px", overflow: "hidden" },
+  navbar: { height: "5vh" },
   paletteColors: {
-    height: "90%",
+    height: "90vh",
   },
   paletteFooter: {
     backgroundColor: "white",
@@ -47,18 +48,21 @@ const Pallete: React.FC<PaletteProps> = ({ palette, classes }) => {
   };
   return (
     <div className={classes.palette}>
-      <NavBar
-        level={level}
-        changeLevel={changeLevel}
-        handleChange={(
-          e: React.ChangeEvent<{
-            name?: string | undefined;
-            value: string;
-          }>
-        ) => handleChange(e)}
-        format={format}
-        showSlider={true}
-      ></NavBar>
+      <div className={classes.navbar}>
+        <NavBar
+          level={level}
+          changeLevel={changeLevel}
+          handleChange={(
+            e: React.ChangeEvent<{
+              name?: string | undefined;
+              value: string;
+            }>
+          ) => handleChange(e)}
+          format={format}
+          showSlider={true}
+        ></NavBar>
+      </div>
+
       <div className={classes.paletteColors}>
         {colors[level].map((color) => (
           <ColorBox

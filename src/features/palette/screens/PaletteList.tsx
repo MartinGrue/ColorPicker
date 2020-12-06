@@ -26,7 +26,6 @@ const styles = createStyles({
   },
   root: {
     overflow: "scroll",
-    backgroundColor: "#ff7700",
     backgroundImage: `url(${bg})`,
     backgroundSize: "cover",
     height: "100vh",

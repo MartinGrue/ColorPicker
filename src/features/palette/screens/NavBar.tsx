@@ -18,7 +18,7 @@ const styles = createStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
-    height: "6vh",
+    height: "100%",
     [sizes.down("m")]: { height: "auto", flexFlow: "row wrap" },
   },
   logo: {

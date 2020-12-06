@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import clsx from "clsx";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -21,43 +21,25 @@ import {
   WithStyles,
 } from "@material-ui/core/styles/withStyles";
 
-const drawerWidth = 400;
 const styles = (theme: Theme) =>
   createStyles({
-    root: {
-      display: "flex",
-    },
     hide: {
-      display: 'none',
+      display: "none",
     },
     appBar: {
-      transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
-      height: "64px",
-    },
-    appBarShift: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      [sizes.down("m")]: { width: `calc(100% - ${drawerWidth - 100}px)` },
-      marginLeft: drawerWidth,
-      transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
+      flexWrap: "wrap",
     },
     menuButton: {
       marginRight: theme.spacing(2),
     },
-    navbtns: { margin: "10px", padding: "10px" },
-
+    navbtns: { margin: "10px" },
     heading: {
       [sizes.down("m")]: {
-        width: (props: any) => (props.open ? "0%" : "auto"),
-      } as CreateCSSProperties<any>,
+        width: "0%",
+      },
 
       [sizes.down("xs")]: { width: "0px" },
     },
@@ -85,14 +67,12 @@ const PaletteFormNav: React.FC<PaletteFormNavProps> = ({
   };
 
   return (
-    <div className={classes.root}>
+    <Fragment>
       <CssBaseline />
       <AppBar
         color="default"
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
+        position={"sticky"}
+        className={clsx(classes.appBar)}
       >
         <Toolbar>
           <IconButton
@@ -100,7 +80,8 @@ const PaletteFormNav: React.FC<PaletteFormNavProps> = ({
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}          >
+            className={clsx(classes.menuButton, open && classes.hide)}
+          >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap className={classes.heading}>
@@ -135,7 +116,7 @@ const PaletteFormNav: React.FC<PaletteFormNavProps> = ({
           localsavePalette={localsavePalette}
         ></PaletteMetaForm>
       )}
-    </div>
+    </Fragment>
   );
 };
 
