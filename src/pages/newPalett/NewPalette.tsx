@@ -97,7 +97,6 @@ const NewPalette: React.FC<NewPaletteFormProps> = ({
   history,
   palettes,
 }) => {
-  
   const [colorObjs, setcolorObjs] = useState<{ name: string; color: string }[]>(
     [
       { name: "red", color: "#F44336" },
@@ -131,7 +130,7 @@ const NewPalette: React.FC<NewPaletteFormProps> = ({
       id: paletteName.toLowerCase().replace(/ /g, "-"),
       emoji: emoji.native,
     };
-    // savePalette(newPalette);
+    savePalette(newPalette);
     history.push("/");
   };
 
@@ -178,7 +177,6 @@ const NewPalette: React.FC<NewPaletteFormProps> = ({
 
   return (
     <div className={classes.root}>
-      
       <Drawer
         transitionDuration={4000}
         className={classes.drawer}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { withStyles, createStyles } from "@material-ui/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { WithStyles } from "@material-ui/core";
