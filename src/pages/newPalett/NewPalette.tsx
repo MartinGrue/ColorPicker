@@ -13,7 +13,6 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Button } from "@material-ui/core";
 import { IPalette } from "../../models/IPalette";
-import { Link, RouteComponentProps } from "react-router-dom";
 import { arrayMove } from "react-sortable-hoc";
 import { BaseEmoji } from "emoji-mart";
 import { sizes } from "../../styles/sizes";
@@ -21,6 +20,7 @@ import namer from "color-namer";
 import NewPaletteColorList from "./NewPaletteColorList";
 import NewPaletteNav from "./NewPaletteNav";
 import ColoPicker from "./ColorPicker";
+import { RouteComponentProps } from "react-router-dom";
 
 const drawerWidth = 400;
 const styles = (theme: Theme) =>
@@ -84,14 +84,16 @@ const styles = (theme: Theme) =>
       width: "50%",
     },
   });
-interface NewPaletteFormProps extends WithStyles<typeof styles> {
+interface NewPaletteFormProps
+  extends RouteComponentProps,
+    WithStyles<typeof styles> {
   savePalette: (newpalette: IPalette) => void;
   palettes: IPalette[];
 }
 const NewPalette: React.FC<NewPaletteFormProps> = ({
   classes,
   savePalette,
-  // history,
+  history,
   palettes,
 }) => {
   const [colorObjs, setcolorObjs] = useState<{ name: string; color: string }[]>(
@@ -128,7 +130,7 @@ const NewPalette: React.FC<NewPaletteFormProps> = ({
       emoji: emoji.native,
     };
     savePalette(newPalette);
-    // history.push("/");
+    history.push("/");
   };
 
   const selectColor = (name: string) => {
@@ -148,15 +150,18 @@ const NewPalette: React.FC<NewPaletteFormProps> = ({
     return colorObjs.filter((obj) => obj.name === name).length > 0;
   };
   const addRandomColor = (): string => {
-    const letters = "0123456789ABCDEF";
-    var color = "#";
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    while (colorObjs.filter((obj) => obj.color === color).length > 0) {
-      color = "#";
-      color += letters[Math.floor(Math.random() * 16)];
-    }
+    const generateHex = () => {
+      const letters = "0123456789ABCDEF";
+      var color = "#";
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    };
+    let color = generateHex();
+    colorObjs.forEach((obj) => {
+      obj.color === color && (color = generateHex());
+    });
     var colorNames = namer(color);
     let name = colorNames.ntc[0].name;
     let count = 0;

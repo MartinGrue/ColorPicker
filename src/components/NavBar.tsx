@@ -113,9 +113,6 @@ const NavBar: React.FC<NavBarProps> = ({
     setopen(false);
   };
 
-  function testForString(value: unknown): string {
-    return String(value);
-  }
   return (
     <header className={classes.navBar}>
       <div className={classes.logo}>

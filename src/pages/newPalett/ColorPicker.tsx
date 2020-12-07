@@ -61,7 +61,6 @@ const ColoPickerForm: React.FC<ColoPickerFormProps> = ({
       color: currentColor
     };
     setcolorObjs([...colorObjs, newColor]);
-    console.log(colorObjs)
   };
   const handleNewName = (name: string) => {
     setnewName(name);

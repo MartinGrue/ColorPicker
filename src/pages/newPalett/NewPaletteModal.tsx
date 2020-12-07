@@ -38,6 +38,7 @@ const PaletteMetaForm: React.FC<PaletteMetaFormProps> = ({
   };
   const savePalette = (emoji: BaseEmoji) => {
     localsavePalette(newPaletteName, emoji);
+    setmodalstage(undefined);
   };
   useEffect(() => {
     ValidatorForm.addValidationRule("isUniquePaletteName", (value: string) => {
@@ -71,11 +72,7 @@ const PaletteMetaForm: React.FC<PaletteMetaFormProps> = ({
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Chosse a palette Name</DialogTitle>
-        <ValidatorForm
-          onSubmit={() => {
-            console.log(newPaletteName);
-          }}
-        >
+        <ValidatorForm onSubmit={() => {}}>
           <DialogContent>
             <DialogContentText>
               Please enter a name for the new color palette.
