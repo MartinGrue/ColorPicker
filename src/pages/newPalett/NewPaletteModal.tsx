@@ -37,8 +37,9 @@ const PaletteMetaForm: React.FC<PaletteMetaFormProps> = ({
     setnewPaletteName(name);
   };
   const savePalette = (emoji: BaseEmoji) => {
-    localsavePalette(newPaletteName, emoji);
     setmodalstage(undefined);
+
+    localsavePalette(newPaletteName, emoji);
   };
   useEffect(() => {
     ValidatorForm.addValidationRule("isUniquePaletteName", (value: string) => {
@@ -50,6 +51,7 @@ const PaletteMetaForm: React.FC<PaletteMetaFormProps> = ({
   return (
     <Fragment>
       <Dialog
+        disablePortal={true}
         open={modalstage === "emojiStage"}
         onClose={(e, reason) => {
           if (reason === "backdropClick") {
@@ -61,8 +63,13 @@ const PaletteMetaForm: React.FC<PaletteMetaFormProps> = ({
         <Picker onSelect={(emoji: BaseEmoji) => savePalette(emoji)}></Picker>
       </Dialog>
       <Dialog
+        disablePortal={true}
         open={modalstage === "nameStage"}
+        onAbort={() => {
+          setmodalstage(undefined);
+        }}
         onClose={(e, reason) => {
+          console.log("backdrop");
           if (reason === "backdropClick") {
             setmodalstage(undefined);
           } else {

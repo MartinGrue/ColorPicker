@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { withStyles, createStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Dialog from "@material-ui/core/Dialog";
 import { DialogTitle, WithStyles } from "@material-ui/core";
 import List from "@material-ui/core/List";

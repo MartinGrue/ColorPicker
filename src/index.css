@@ -14,12 +14,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.fade-enter {
-  opacity: 0;
-  z-index: 1;
-}
 
-.fade-enter.fade-enter-active {
+.my-element-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.my-element-enter-active {
   opacity: 1;
-  transition: opacity 250ms ease-in;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.my-element-exit {
+  opacity: 1;
+}
+.my-element-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
 }

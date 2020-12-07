@@ -17,10 +17,9 @@ const App: React.FC = () => {
     const localStorePalettes = JSON.parse(
       window.localStorage.getItem("palettes") || "{}"
     );
-    console.log(localStorePalettes);
+    // console.log(localStorePalettes);
     if (Object.keys(localStorePalettes).length !== 0) {
-      console.log("is local");
-
+      // console.log("is local");
       setpalettes(localStorePalettes);
     }
   }, []);
@@ -42,64 +41,66 @@ const App: React.FC = () => {
     <Route
       render={({ location }) => (
         <TransitionGroup>
-          <CSSTransition timeout={400} classNames="fade" key={location.key}>
-            <Switch location={location}>
-              <Route
-                path="/palette/new"
-                exact
-                render={(routeProps) => (
-                  <NewPalette
-                    {...routeProps}
-                    savePalette={savePalette}
-                    palettes={palettes}
-                  ></NewPalette>
-                )}
-              ></Route>
-              <Route
-                exact
-                path="/palette/:paletteId/:colorId"
-                render={(routeProps) => (
-                  <SingleColorPalette
-                    palette={generatePalette(
-                      findPalette(routeProps.match.params.paletteId)!
-                    )}
-                    colorId={routeProps.match.params.colorId}
-                  ></SingleColorPalette>
-                )}
-              ></Route>
-              <Route
-                exact
-                path="/palette/:id"
-                render={(routeProps) => (
-                  <MultiColorPalette
-                    palette={generatePalette(
-                      findPalette(routeProps.match.params.id)!
-                    )}
-                  ></MultiColorPalette>
-                )}
-              ></Route>
-              <Route
-                exact
-                path={"/"}
-                render={(routeProps) => (
-                  <Home
-                    {...routeProps}
-                    palettes={palettes}
-                    setpalettes={setpalettes}
-                  ></Home>
-                )}
-              ></Route>
-              <Route
-                path={"/(.+)"}
-                render={(routeProps) => (
-                  <Home
-                    {...routeProps}
-                    palettes={palettes}
-                    setpalettes={setpalettes}
-                  ></Home>
-                )}
-              ></Route>
-            </Switch>
+          <CSSTransition timeout={300} classNames='my-element' key={location.key}>
+            <div>
+              <Switch location={location}>
+                <Route
+                  path="/palette/new"
+                  exact
+                  render={(routeProps) => (
+                    <NewPalette
+                      {...routeProps}
+                      savePalette={savePalette}
+                      palettes={palettes}
+                    ></NewPalette>
+                  )}
+                ></Route>
+                <Route
+                  exact
+                  path="/palette/:paletteId/:colorId"
+                  render={(routeProps) => (
+                    <SingleColorPalette
+                      palette={generatePalette(
+                        findPalette(routeProps.match.params.paletteId)!
+                      )}
+                      colorId={routeProps.match.params.colorId}
+                    ></SingleColorPalette>
+                  )}
+                ></Route>
+                <Route
+                  exact
+                  path="/palette/:id"
+                  render={(routeProps) => (
+                    <MultiColorPalette
+                      palette={generatePalette(
+                        findPalette(routeProps.match.params.id)!
+                      )}
+                    ></MultiColorPalette>
+                  )}
+                ></Route>
+                <Route
+                  exact
+                  path={"/"}
+                  render={(routeProps) => (
+                    <Home
+                      {...routeProps}
+                      palettes={palettes}
+                      setpalettes={setpalettes}
+                    ></Home>
+                  )}
+                ></Route>
+                <Route
+                  path={"/(.+)"}
+                  render={(routeProps) => (
+                    <Home
+                      {...routeProps}
+                      palettes={palettes}
+                      setpalettes={setpalettes}
+                    ></Home>
+                  )}
+                ></Route>
+              </Switch>
+            </div>
           </CSSTransition>
         </TransitionGroup>
       )}
