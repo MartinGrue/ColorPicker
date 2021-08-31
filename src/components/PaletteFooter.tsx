@@ -1,8 +1,13 @@
 import React from "react";
-import { withStyles, createStyles } from "@material-ui/styles";
-import { WithStyles } from "@material-ui/core";
+import { withStyles } from "@material-ui/styles";
+import { StyleRulesCallback, Theme, WithStyles } from "@material-ui/core";
 import { IExtendedPalette } from "../models/IExtendedPalette";
-const styles = createStyles({
+
+interface Props {
+  palette: IExtendedPalette;
+}
+
+const styles: StyleRulesCallback<Theme, Props> = () => ({
   paletteFooter: {
     backgroundColor: "white",
     height: "5vh",
@@ -16,9 +21,7 @@ const styles = createStyles({
     margin: "0 1 rem",
   },
 });
-interface PaletteFooterProps extends WithStyles<typeof styles> {
-  palette: IExtendedPalette;
-}
+interface PaletteFooterProps extends WithStyles<typeof styles>, Props {}
 const PaletteFooter: React.FC<PaletteFooterProps> = ({ palette, classes }) => {
   return (
     <footer className={classes.paletteFooter}>

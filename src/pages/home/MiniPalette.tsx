@@ -1,10 +1,15 @@
 import React from "react";
-import { withStyles, createStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { WithStyles } from "@material-ui/core";
+import { StyleRulesCallback, Theme, WithStyles } from "@material-ui/core";
 import { IPalette } from "../../models/IPalette";
 
-const styles = createStyles({
+interface Props {
+  palette: IPalette;
+  goToPalette: (id: string) => void;
+  openParentDialog: (palette: IPalette) => void;
+}
+const styles: StyleRulesCallback<Theme, Props> = () => ({
   root: {
     backgroundColor: "white",
     border: "1px solid black",
@@ -23,7 +28,7 @@ const styles = createStyles({
   colors: {
     marginBottom: "auto",
     backgroundColor: "#dae1e4",
-    height: '150px',
+    height: "150px",
     // flexGrow: 2,
     // width: "100%",
     borderRadius: "5px",
@@ -66,11 +71,7 @@ const styles = createStyles({
     borderRadius: "5px",
   },
 });
-interface MiniPaletteProps extends WithStyles<typeof styles> {
-  palette: IPalette;
-  goToPalette: (id: string) => void;
-  openParentDialog: (palette: IPalette) => void;
-}
+interface MiniPaletteProps extends WithStyles<typeof styles>, Props {}
 const PropsAreEqual = (
   prevProps: MiniPaletteProps,
   nextPorps: MiniPaletteProps

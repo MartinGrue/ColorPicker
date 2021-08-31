@@ -1,4 +1,6 @@
-import { createStyles } from "@material-ui/styles";
+import { Theme } from "@material-ui/core";
+import { StyleRulesCallback } from "@material-ui/core";
+import {} from "@material-ui/styles";
 import chroma from "chroma-js";
 import { sizes } from "./sizes";
 
@@ -13,7 +15,7 @@ interface ColorBoxProps {
 const ChromaDarker = (props: ColorBoxProps) => {
   return chroma(props.background).luminance() >= 0.5 ? "black" : "white";
 };
-export default createStyles({
+const styles: StyleRulesCallback<Theme, ColorBoxProps> = () => ({
   colorBox: {
     width: "20%",
     height: (props) => (props.showLink ? "25%" : "50%"),
@@ -136,3 +138,4 @@ export default createStyles({
     opacity: 0,
   },
 });
+export default styles;

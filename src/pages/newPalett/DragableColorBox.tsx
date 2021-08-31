@@ -1,9 +1,21 @@
 import React from "react";
-import { createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
+import {
+  StyleRulesCallback,
+  Theme,
+  withStyles,
+  WithStyles,
+} from "@material-ui/core/styles";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { SortableElement } from "react-sortable-hoc";
 import { sizes } from "../../styles/sizes";
-const styles = createStyles({
+
+interface Props {
+  color: string;
+  name: string;
+  deleteColor: (color: string) => void;
+  selectColor: (color: string) => void;
+}
+const styles: StyleRulesCallback<Theme, Props> = () => ({
   root: {
     width: "20%",
     height: "25%",
@@ -62,12 +74,7 @@ const styles = createStyles({
     flexDirection: "row-reverse",
   },
 });
-interface DragableColorBoxProps extends WithStyles<typeof styles> {
-  color: string;
-  name: string;
-  deleteColor: (color: string) => void;
-  selectColor: (color: string) => void;
-}
+interface DragableColorBoxProps extends WithStyles<typeof styles>, Props {}
 const DragableColorBox = SortableElement<DragableColorBoxProps>(
   ({
     color,

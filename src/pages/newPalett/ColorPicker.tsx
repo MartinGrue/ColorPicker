@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ChromePicker from "react-color/lib/components/chrome/Chrome";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { Button, withStyles, createStyles, WithStyles } from "@material-ui/core";
+import {
+  Button,
+  withStyles,
+  WithStyles,
+  StyleRulesCallback,
+  Theme,
+} from "@material-ui/core";
 
-const styles = () =>
-  createStyles({
-    addcolor: {
-      width: "100%",
-      padding: "1rem",
-      marginTop: "2rem",
-      fontSize: "1rem"
-    },
-    colorNameInput: {
-      width: "100%",
-      marginTop: "2rem"
-    }
-  });
-interface ColoPickerFormProps extends WithStyles<typeof styles> {
+interface Props {
   currentColor: string;
   handlesetcurrentColor: (newColor: string) => void;
   colorObjs: {
@@ -32,13 +25,26 @@ interface ColoPickerFormProps extends WithStyles<typeof styles> {
     >
   >;
 }
+const styles: StyleRulesCallback<Theme, Props> = () => ({
+  addcolor: {
+    width: "100%",
+    padding: "1rem",
+    marginTop: "2rem",
+    fontSize: "1rem",
+  },
+  colorNameInput: {
+    width: "100%",
+    marginTop: "2rem",
+  },
+});
+interface ColoPickerFormProps extends WithStyles<typeof styles>, Props {}
 
 const ColoPickerForm: React.FC<ColoPickerFormProps> = ({
   currentColor,
   handlesetcurrentColor,
   colorObjs,
   setcolorObjs,
-  classes
+  classes,
 }) => {
   useEffect(() => {
     ValidatorForm.addValidationRule("isUniqueColorName", (value: string) => {
@@ -58,7 +64,7 @@ const ColoPickerForm: React.FC<ColoPickerFormProps> = ({
   const AddColor = () => {
     const newColor: { name: string; color: string } = {
       name: newName,
-      color: currentColor
+      color: currentColor,
     };
     setcolorObjs([...colorObjs, newColor]);
   };
@@ -71,7 +77,7 @@ const ColoPickerForm: React.FC<ColoPickerFormProps> = ({
       <ChromePicker
         styles={{ default: { picker: { width: "100%", marginTop: "2rem" } } }}
         color={currentColor}
-        onChangeComplete={newColor => {
+        onChangeComplete={(newColor) => {
           handlesetcurrentColor(newColor.hex);
           setnewName(newName.concat("\u200e"));
         }}
@@ -88,7 +94,7 @@ const ColoPickerForm: React.FC<ColoPickerFormProps> = ({
           errorMessages={[
             "Color name must be unique",
             "Color name required",
-            "Color already added"
+            "Color already added",
           ]}
           name={newName}
           value={newName}
@@ -103,7 +109,7 @@ const ColoPickerForm: React.FC<ColoPickerFormProps> = ({
           type="submit"
           disabled={colorObjs.length >= 20}
           style={{
-            backgroundColor: colorObjs.length >= 20 ? "grey" : currentColor
+            backgroundColor: colorObjs.length >= 20 ? "grey" : currentColor,
           }}
         >
           {colorObjs.length >= 20 ? "Palette Full" : "Add Color"}

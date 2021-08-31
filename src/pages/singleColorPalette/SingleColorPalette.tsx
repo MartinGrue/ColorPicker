@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
-import { withStyles, createStyles } from "@material-ui/styles";
-import { WithStyles } from "@material-ui/core";
+import { withStyles } from "@material-ui/styles";
+import { StyleRulesCallback, WithStyles } from "@material-ui/core";
 import ColorBox from "../../components/ColorBox";
 import NavBar from "../../components/NavBar";
 import PaletteFooter from "../../components/PaletteFooter";
 import { IExtendedPalette } from "../../models/IExtendedPalette";
 import { sizes } from "../../styles/sizes";
+import { Theme } from "@material-ui/core";
 
-const styles = createStyles({
+interface Props {
+  palette: IExtendedPalette;
+  colorId: string;
+}
+const styles: StyleRulesCallback<Theme, Props> = () => ({
   palette: { height: "100vh", overflow: "hidden" },
   navbar: { height: "5vh" },
   paletteColors: { height: "90vh" },
@@ -55,10 +60,7 @@ const styles = createStyles({
   },
 });
 
-interface SingleColorPaletteProps extends WithStyles<typeof styles> {
-  palette: IExtendedPalette;
-  colorId: string;
-}
+interface SingleColorPaletteProps extends WithStyles<typeof styles>, Props {}
 interface shades {
   [key: string]: string;
   name: string;

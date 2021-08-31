@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import NavBar from "../../components/NavBar";
-import { withStyles, createStyles } from "@material-ui/styles";
-import { WithStyles } from "@material-ui/core";
+import { withStyles } from "@material-ui/styles";
+import { StyleRulesCallback, Theme, WithStyles } from "@material-ui/core";
 import ColorBox from "../../components/ColorBox";
 import PaletteFooter from "../../components/PaletteFooter";
 import { IExtendedPalette } from "../../models/IExtendedPalette";
 
-const styles = createStyles({
+interface Props {
+  palette: IExtendedPalette;
+}
+const styles: StyleRulesCallback<Theme, Props> = () => ({
   palette: { height: "100vh", minWidth: "310px", overflow: "hidden" },
   navbar: { height: "5vh" },
   paletteColors: {
@@ -25,9 +28,7 @@ const styles = createStyles({
     margin: "0 1 rem",
   },
 });
-interface PaletteProps extends WithStyles<typeof styles> {
-  palette: IExtendedPalette;
-}
+interface PaletteProps extends WithStyles<typeof styles>, Props {}
 const MultiColorPalette: React.FC<PaletteProps> = ({ palette, classes }) => {
   const [level, setlevel] = useState<number>(500);
   const [format, setformat] = useState<string>("hex");

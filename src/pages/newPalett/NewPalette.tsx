@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import {
   Theme,
-  createStyles,
   withStyles,
   WithStyles,
+  StyleRulesCallback,
 } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Typography from "@material-ui/core/Typography";
@@ -23,74 +23,76 @@ import ColoPicker from "./ColorPicker";
 import { RouteComponentProps } from "react-router-dom";
 
 const drawerWidth = 400;
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      height: "100vh",
-      display: "flex",
-      flexDirection: "row",
-    },
-    hide: {
-      display: "none",
-    },
-    drawer: {
-      [sizes.down("m")]: { width: drawerWidth - 100, textAlign: "center" },
-      width: drawerWidth,
-    },
-    drawerPaper: {
-      [sizes.down("m")]: { width: drawerWidth - 100 },
-      [sizes.down("xs")]: { width: "100%" },
-      width: drawerWidth,
-    },
-    drawerHeader: {
-      display: "flex",
-      alignItems: "center",
-      padding: theme.spacing(0, 1),
-      ...theme.mixins.toolbar,
-      justifyContent: "flex-end",
-    },
-    content: {
-      flexGrow: 1,
-      display: "flex",
-      flexDirection: "column",
-      height: "100vh",
 
-      transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      [sizes.down("m")]: { marginLeft: -drawerWidth + 100 },
-      marginLeft: -drawerWidth,
-    },
-    contentShift: {
-      transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    },
-    drawerContainer: {
-      width: "90%",
-      alignSelf: "center",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      height: "100%",
-    },
-    drawerBtns: {
-      width: "100%",
-    },
-    btn: {
-      width: "50%",
-    },
-  });
-interface NewPaletteFormProps
-  extends RouteComponentProps,
-    WithStyles<typeof styles> {
+interface Props extends RouteComponentProps {
   savePalette: (newpalette: IPalette) => void;
   palettes: IPalette[];
 }
+
+const styles: StyleRulesCallback<Theme, Props> = (theme: Theme) => ({
+  root: {
+    height: "100vh",
+    display: "flex",
+    flexDirection: "row",
+  },
+  hide: {
+    display: "none",
+  },
+  drawer: {
+    [sizes.down("m")]: { width: drawerWidth - 100, textAlign: "center" },
+    width: drawerWidth,
+  },
+  drawerPaper: {
+    [sizes.down("m")]: { width: drawerWidth - 100 },
+    [sizes.down("xs")]: { width: "100%" },
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  },
+  content: {
+    flexGrow: 1,
+    display: "flex",
+    flexDirection: "column",
+    height: "100vh",
+
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    [sizes.down("m")]: { marginLeft: -drawerWidth + 100 },
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  },
+  drawerContainer: {
+    width: "90%",
+    alignSelf: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+  },
+  drawerBtns: {
+    width: "100%",
+  },
+  btn: {
+    width: "50%",
+  },
+});
+
+interface NewPaletteFormProps extends WithStyles<typeof styles>, Props {}
+
 const NewPalette: React.FC<NewPaletteFormProps> = ({
   classes,
   savePalette,

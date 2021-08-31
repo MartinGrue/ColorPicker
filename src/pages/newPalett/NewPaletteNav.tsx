@@ -8,41 +8,43 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { IPalette } from "../../models/IPalette";
-import { Theme, createStyles, withStyles } from "@material-ui/core/styles";
+import { Theme, withStyles } from "@material-ui/core/styles";
 import { BaseEmoji } from "emoji-mart";
 import { sizes } from "../../styles/sizes";
 import { WithStyles } from "@material-ui/core/styles/withStyles";
 import NewPaletteModal from "./NewPaletteModal";
-const styles = (theme: Theme) =>
-  createStyles({
-    hide: {
-      display: "none",
-    },
-    appBar: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      flexWrap: "wrap",
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    navbtns: { margin: "10px" },
-    heading: {
-      [sizes.down("m")]: {
-        width: "0%",
-      },
+import { StyleRulesCallback } from "@material-ui/core";
 
-      [sizes.down("xs")]: { width: "0px" },
-    },
-  });
-
-interface PaletteFormNavProps extends WithStyles<typeof styles> {
+interface Props {
   open: boolean;
   localsavePalette: (newPaletteName: string, emoji: BaseEmoji) => void;
   setOpen: any;
   palettes: IPalette[];
 }
+const styles: StyleRulesCallback<Theme, Props> = (theme: Theme) => ({
+  hide: {
+    display: "none",
+  },
+  appBar: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexWrap: "wrap",
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  navbtns: { margin: "10px" },
+  heading: {
+    [sizes.down("m")]: {
+      width: "0%",
+    },
+
+    [sizes.down("xs")]: { width: "0px" },
+  },
+});
+
+interface PaletteFormNavProps extends WithStyles<typeof styles>, Props {}
 const PaletteFormNav: React.FC<PaletteFormNavProps> = ({
   classes,
   open,
@@ -50,9 +52,8 @@ const PaletteFormNav: React.FC<PaletteFormNavProps> = ({
   setOpen,
   palettes,
 }) => {
-  const [modalstage, setmodalstage] = useState<
-    "nameStage" | "emojiStage" | undefined
-  >();
+  const [modalstage, setmodalstage] =
+    useState<"nameStage" | "emojiStage" | undefined>();
 
   const handleDrawerOpen = () => {
     setOpen(true);

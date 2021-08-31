@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { withStyles, createStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import Dialog from "@material-ui/core/Dialog";
-import { DialogTitle, WithStyles } from "@material-ui/core";
+import {
+  DialogTitle,
+  StyleRulesCallback,
+  Theme,
+  WithStyles,
+} from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -17,7 +22,12 @@ import { IPalette } from "../../models/IPalette";
 import { sizes } from "../../styles/sizes";
 import MiniPalette from "./MiniPalette";
 import bg from "../../Rainbow-Vortex.svg";
-const styles = createStyles({
+
+interface Props extends RouteComponentProps {
+  palettes: IPalette[];
+  setpalettes: React.Dispatch<React.SetStateAction<IPalette[]>>;
+}
+const styles: StyleRulesCallback<Theme, Props> = () => ({
   "@global": {
     ".fade-exit": { opacity: 1 },
     ".fade-exit-active": { opacity: 0, transition: "opacity 500ms ease-out" },
@@ -64,10 +74,7 @@ const styles = createStyles({
   },
 });
 
-interface ListProps extends RouteComponentProps, WithStyles<typeof styles> {
-  palettes: IPalette[];
-  setpalettes: React.Dispatch<React.SetStateAction<IPalette[]>>;
-}
+interface ListProps extends WithStyles<typeof styles>, Props {}
 const Home: React.FC<ListProps> = ({
   history,
   palettes,

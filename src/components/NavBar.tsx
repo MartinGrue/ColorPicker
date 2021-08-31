@@ -9,11 +9,24 @@ import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
-import { withStyles, createStyles } from "@material-ui/styles";
-import { WithStyles } from "@material-ui/core";
+import { withStyles, StyleRulesCallback } from "@material-ui/styles";
+import { Theme, WithStyles } from "@material-ui/core";
 import { sizes } from "../styles/sizes";
 
-const styles = createStyles({
+interface Props {
+  level?: number;
+  changeLevel?: (value: number) => void;
+  handleChange: (
+    e: React.ChangeEvent<{
+      name?: string | undefined;
+      value: string;
+    }>
+  ) => void;
+  format: string;
+  showSlider: boolean;
+}
+
+const styles: StyleRulesCallback<Theme, Props> = () => ({
   navBar: {
     display: "flex",
     alignItems: "center",
@@ -59,16 +72,17 @@ const styles = createStyles({
     "& .rc-slider-track": {
       // height: '8px'
     },
-    "& .rc-slider-handle, .rc-slider-handle:active, .rc-slider-handle:hover, .rc-slider-handle:focus": {
-      backgroundColor: "green",
-      outline: "none",
-      border: "2px solid green",
-      boxShadow: "none",
-      width: "13px",
-      height: "13px",
-      marginLeft: "-7px",
-      marginTop: "-4px",
-    },
+    "& .rc-slider-handle, .rc-slider-handle:active, .rc-slider-handle:hover, .rc-slider-handle:focus":
+      {
+        backgroundColor: "green",
+        outline: "none",
+        border: "2px solid green",
+        boxShadow: "none",
+        width: "13px",
+        height: "13px",
+        marginLeft: "-7px",
+        marginTop: "-4px",
+      },
   },
   selectContainer: {
     marginLeft: "auto",
@@ -80,18 +94,7 @@ const styles = createStyles({
     },
   },
 });
-interface NavBarProps extends WithStyles<typeof styles> {
-  level?: number;
-  changeLevel?: (value: number) => void;
-  handleChange: (
-    e: React.ChangeEvent<{
-      name?: string | undefined;
-      value: string;
-    }>
-  ) => void;
-  format: string;
-  showSlider: boolean;
-}
+interface NavBarProps extends WithStyles<typeof styles>, Props {}
 const NavBar: React.FC<NavBarProps> = ({
   level,
   changeLevel,
