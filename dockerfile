@@ -1,5 +1,5 @@
 # base image
-FROM node:12.2.0-alpine
+FROM node:alpine as build-stage
 
 # set working directory
 WORKDIR /app
@@ -8,9 +8,11 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
-COPY package.json /app/package.json
-RUN npm install
-RUN npm install react-scripts@3.0.1 -g
+COPY package.json .
+COPY . .
+RUN npm install --force
+RUN npm run build
 
-# start app
-CMD ["npm", "start"]
+FROM nginx
+COPY --from=build-stage /app/build/ /var/www/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
