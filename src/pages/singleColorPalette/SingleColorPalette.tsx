@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import { StyleRulesCallback, WithStyles } from "@material-ui/core";
 import ColorBox from "../../components/ColorBox";
@@ -9,56 +9,15 @@ import PaletteFooter from "../../components/PaletteFooter";
 import { IExtendedPalette } from "../../models/IExtendedPalette";
 import { sizes } from "../../styles/sizes";
 import { Theme } from "@material-ui/core";
+import { IPalette } from "../../models/IPalette";
+import { generatePalette } from "../../utils/ColorHelpers";
+
+
 
 interface Props {
-  palette: IExtendedPalette;
-  colorId: string;
+  findPalette: (id: string) => IPalette | undefined;
+  savePalette: (newPalette: IPalette) => void;
 }
-const styles: StyleRulesCallback<Theme, Props> = () => ({
-  palette: { height: "100vh", overflow: "hidden" },
-  navbar: { height: "5vh" },
-  paletteColors: { height: "90vh" },
-  goback: {
-    backgroundColor: "#eceff1",
-    display: "inline-block",
-    position: "relative",
-    width: "20%",
-    height: "50%",
-    marginBottom: "-4px",
-    cursor: "pointer",
-    [sizes.down("l")]: {
-      width: "100%",
-      height: "23.3333%",
-    },
-    [sizes.down("m")]: {
-      width: "100%",
-      height: "20%",
-    },
-    [sizes.down("xs")]: {
-      width: "100%",
-      height: "10%",
-    },
-  },
-  gobackbtn: {
-    width: "100px",
-    height: "30px",
-    position: "absolute",
-    display: "inline-block",
-    top: "50%",
-    left: "50%",
-    marginLeft: "-50px",
-    marginTop: "-15px",
-    textAlign: "center",
-    outline: "none",
-    background: "rgba(188, 182, 182, 0.3)",
-    fontSize: "1rem",
-    lineHeight: "30px",
-    color: "black",
-    textTransform: "uppercase",
-    border: "none",
-    cursor: "pointer",
-  },
-});
 
 interface SingleColorPaletteProps extends WithStyles<typeof styles>, Props {}
 interface shades {
@@ -70,10 +29,17 @@ interface shades {
   rgba: string;
 }
 const SingleColorPalette: React.FC<SingleColorPaletteProps> = ({
-  palette,
-  colorId,
   classes,
+  findPalette,
+  savePalette,
 }) => {
+  // palette={generatePalette(
+  //   findPalette(routeProps.match.params.paletteId)!
+  // )}
+  // colorId={routeProps.match.params.colorId}
+
+  const { paletteId, colorId } = useParams();
+  const palette = generatePalette(findPalette(paletteId!)!);
   const [format, setformat] = useState<string>("hex");
 
   const gatherShades = (palette: IExtendedPalette, colorToFilterBy: string) => {
@@ -91,7 +57,7 @@ const SingleColorPalette: React.FC<SingleColorPaletteProps> = ({
     return shades!.slice(1);
   };
 
-  const shades: shades[] = gatherShades(palette, colorId);
+  const shades: shades[] = gatherShades(palette, colorId!);
 
   const handleChange = (
     e: React.ChangeEvent<{
@@ -137,4 +103,49 @@ const SingleColorPalette: React.FC<SingleColorPaletteProps> = ({
   );
 };
 
+const styles: StyleRulesCallback<Theme, Props> = () => ({
+  palette: { height: "100vh", overflow: "hidden" },
+  navbar: { height: "5vh" },
+  paletteColors: { height: "90vh" },
+  goback: {
+    backgroundColor: "#eceff1",
+    display: "inline-block",
+    position: "relative",
+    width: "20%",
+    height: "50%",
+    marginBottom: "-4px",
+    cursor: "pointer",
+    [sizes.down("l")]: {
+      width: "100%",
+      height: "23.3333%",
+    },
+    [sizes.down("m")]: {
+      width: "100%",
+      height: "20%",
+    },
+    [sizes.down("xs")]: {
+      width: "100%",
+      height: "10%",
+    },
+  },
+  gobackbtn: {
+    width: "100px",
+    height: "30px",
+    position: "absolute",
+    display: "inline-block",
+    top: "50%",
+    left: "50%",
+    marginLeft: "-50px",
+    marginTop: "-15px",
+    textAlign: "center",
+    outline: "none",
+    background: "rgba(188, 182, 182, 0.3)",
+    fontSize: "1rem",
+    lineHeight: "30px",
+    color: "black",
+    textTransform: "uppercase",
+    border: "none",
+    cursor: "pointer",
+  },
+});
 export default withStyles(styles)(SingleColorPalette);

@@ -1,14 +1,9 @@
-import React from "react";
+import React, { FunctionComponent, ReactNode } from "react";
 import { withStyles } from "@material-ui/styles";
-import DeleteIcon from "@material-ui/icons/Delete";
+// import DeleteIcon from "@material-ui/icons/Delete";
 import { StyleRulesCallback, Theme, WithStyles } from "@material-ui/core";
 import { IPalette } from "../../models/IPalette";
 
-interface Props {
-  palette: IPalette;
-  goToPalette: (id: string) => void;
-  openParentDialog: (palette: IPalette) => void;
-}
 const styles: StyleRulesCallback<Theme, Props> = () => ({
   root: {
     backgroundColor: "white",
@@ -71,6 +66,12 @@ const styles: StyleRulesCallback<Theme, Props> = () => ({
     borderRadius: "5px",
   },
 });
+interface Props {
+  children: ReactNode;
+  palette: IPalette;
+  goToPalette: (id: string) => void;
+  openParentDialog: (palette: IPalette) => void;
+}
 interface MiniPaletteProps extends WithStyles<typeof styles>, Props {}
 const PropsAreEqual = (
   prevProps: MiniPaletteProps,
@@ -78,7 +79,7 @@ const PropsAreEqual = (
 ) => {
   return prevProps.palette === nextPorps.palette;
 };
-const MiniPalette: React.FC<MiniPaletteProps> = React.memo(
+const MiniPalette: FunctionComponent<MiniPaletteProps> = React.memo(
   ({ classes, palette, openParentDialog, goToPalette }) => {
     return (
       <div
@@ -88,14 +89,14 @@ const MiniPalette: React.FC<MiniPaletteProps> = React.memo(
         }}
       >
         <div className={classes.delete}>
-          <DeleteIcon
+          {/* <DeleteIcon
             className={classes.deleteIcon}
             style={{ transition: "all 0.3s ease-in-out" }}
-            onClick={(e) => {
+            onClick={(e: any) => {
               openParentDialog(palette);
               e.stopPropagation();
             }}
-          ></DeleteIcon>
+          ></DeleteIcon> */}
         </div>
         <div className={classes.colors}>
           {palette.colors.map((color) => (

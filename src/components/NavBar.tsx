@@ -15,7 +15,7 @@ import { sizes } from "../styles/sizes";
 
 interface Props {
   level?: number;
-  changeLevel?: (value: number) => void;
+  changeLevel?: (value: number | number[]) => void;
   handleChange: (
     e: React.ChangeEvent<{
       name?: string | undefined;
@@ -130,7 +130,8 @@ const NavBar: React.FC<NavBarProps> = ({
               step={100}
               min={100}
               max={900}
-              onAfterChange={changeLevel}
+              // onAfterChange={changeLevel}
+              onChange={changeLevel}
             ></Slider>
           </div>
         </div>
@@ -138,16 +139,15 @@ const NavBar: React.FC<NavBarProps> = ({
       <div className={classes.selectContainer}>
         <Select
           value={format}
-          onChange={(
-            event: React.ChangeEvent<{ name?: string; value: unknown }>
-          ) =>
+          onChange={(event) => {
             handleFormatChange(
               event as React.ChangeEvent<{
                 name?: string | undefined;
                 value: string;
               }>
-            )
-          }
+            );
+            setopen(true);
+          }}
         >
           <MenuItem value="hex">HEX - #ffffff</MenuItem>
           <MenuItem value="rgb">RGB - rgb(255, 255, 255)</MenuItem>
@@ -160,7 +160,7 @@ const NavBar: React.FC<NavBarProps> = ({
           horizontal: "left",
         }}
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={1000}
         onClose={handleCloseSnackBar}
         ContentProps={{
           "aria-describedby": "message-id",

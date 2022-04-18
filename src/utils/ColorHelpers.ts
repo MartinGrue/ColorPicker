@@ -24,31 +24,23 @@
 //       { name: "bluegrey", color: "#607D8B" }
 //     ]
 //   }
-import chroma from 'chroma-js';
-import { IPalette } from '../models/IPalette';
+import chroma from "chroma-js";
+import { IExtendedPalette } from "../models/IExtendedPalette";
+import { IPalette } from "../models/IPalette";
 const levels = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 function getRange(hexColor: string) {
-  const end = '#fff';
-  return [
-    chroma(hexColor)
-      .darken(1.4)
-      .hex(),
-    hexColor,
-    end
-  ];
+  const end = "#fff";
+  return [chroma(hexColor).darken(1.4).hex(), hexColor, end];
 }
 function getScale(hexColor: string, numberOfColors: number) {
-  return chroma
-    .scale(getRange(hexColor))
-    .mode('lab')
-    .colors(numberOfColors);
+  return chroma.scale(getRange(hexColor)).mode("lab").colors(numberOfColors);
 }
-function generatePalette(starterPalette:IPalette) {
+function generatePalette(starterPalette: IPalette): IExtendedPalette {
   let newPalette = {
     paletteName: starterPalette.paletteName,
     id: starterPalette.id,
     emoji: starterPalette.emoji,
-    colors: [[{name: '', hex: '', rgb: '', rgba: '', id:''}]]
+    colors: [[{ name: "", hex: "", rgb: "", rgba: "", id: "" }]],
   };
   for (let level of levels) {
     newPalette.colors[level] = [];
@@ -58,13 +50,13 @@ function generatePalette(starterPalette:IPalette) {
     for (let i in scale) {
       newPalette.colors[levels[i]].push({
         name: `${color.name} ${levels[i]}`,
-        id: color.name.toLowerCase().replace(/ /g, '-'),
+        id: color.name.toLowerCase().replace(/ /g, "-"),
         hex: scale[i],
         rgb: chroma(scale[i]).css(),
         rgba: chroma(scale[i])
           .css()
-          .replace('rgb', 'rgba')
-          .replace(')', ',1.0)')
+          .replace("rgb", "rgba")
+          .replace(")", ",1.0)"),
       });
     }
   }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { RouteComponentProps } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Dialog from "@material-ui/core/Dialog";
 import {
   DialogTitle,
@@ -23,7 +23,7 @@ import { sizes } from "../../styles/sizes";
 import MiniPalette from "./MiniPalette";
 import bg from "../../Rainbow-Vortex.svg";
 
-interface Props extends RouteComponentProps {
+interface Props {
   palettes: IPalette[];
   setpalettes: React.Dispatch<React.SetStateAction<IPalette[]>>;
 }
@@ -75,14 +75,10 @@ const styles: StyleRulesCallback<Theme, Props> = () => ({
 });
 
 interface ListProps extends WithStyles<typeof styles>, Props {}
-const Home: React.FC<ListProps> = ({
-  history,
-  palettes,
-  classes,
-  setpalettes,
-}) => {
+const Home: React.FC<ListProps> = ({ palettes, classes, setpalettes }) => {
   const [dialogOpen, setdialogOpen] = useState(false);
   const [palleteToDelete, setpalleteToDelete] = useState<IPalette>();
+  const navigate = useNavigate();
   const openDialog = (palette: IPalette) => {
     setdialogOpen(true);
     setpalleteToDelete(palette);
@@ -91,7 +87,8 @@ const Home: React.FC<ListProps> = ({
     setdialogOpen(false);
   };
   const goToPalette = (id: string) => {
-    history.push(`/palette/${id}`);
+    navigate(`/palette/${id}`);
+    // history.push();
   };
   const deletePalette = () => {
     // console.log(palettes!.filter(p => p.id !== palleteToDelete!.id));

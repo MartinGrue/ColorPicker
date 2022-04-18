@@ -20,11 +20,10 @@ import namer from "color-namer";
 import NewPaletteColorList from "./NewPaletteColorList";
 import NewPaletteNav from "./NewPaletteNav";
 import ColoPicker from "./ColorPicker";
-import { RouteComponentProps } from "react-router-dom";
 
 const drawerWidth = 400;
 
-interface Props extends RouteComponentProps {
+interface Props {
   savePalette: (newpalette: IPalette) => void;
   palettes: IPalette[];
 }
@@ -96,7 +95,6 @@ interface NewPaletteFormProps extends WithStyles<typeof styles>, Props {}
 const NewPalette: React.FC<NewPaletteFormProps> = ({
   classes,
   savePalette,
-  history,
   palettes,
 }) => {
   const [colorObjs, setcolorObjs] = useState<{ name: string; color: string }[]>(
@@ -133,7 +131,7 @@ const NewPalette: React.FC<NewPaletteFormProps> = ({
       emoji: emoji.native,
     };
     savePalette(newPalette);
-    history.push("/");
+    // history.push("/");
   };
 
   const selectColor = (name: string) => {
