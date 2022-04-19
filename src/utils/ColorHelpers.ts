@@ -25,9 +25,9 @@
 //     ]
 //   }
 import chroma from "chroma-js";
-import { IExtendedPalette } from "../models/IExtendedPalette";
+import { IColor, IPaletteLevels } from "../models/IPaletteLevels";
 import { IPalette } from "../models/IPalette";
-const levels = [100, 200, 300, 400, 500, 600, 700, 800, 900];
+const levelVolume = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 function getRange(hexColor: string) {
   const end = "#fff";
   return [chroma(hexColor).darken(1.4).hex(), hexColor, end];
@@ -35,21 +35,16 @@ function getRange(hexColor: string) {
 function getScale(hexColor: string, numberOfColors: number) {
   return chroma.scale(getRange(hexColor)).mode("lab").colors(numberOfColors);
 }
-function generatePalette(starterPalette: IPalette): IExtendedPalette {
-  let newPalette = {
-    paletteName: starterPalette.paletteName,
-    id: starterPalette.id,
-    emoji: starterPalette.emoji,
-    colors: [[{ name: "", hex: "", rgb: "", rgba: "", id: "" }]],
-  };
-  for (let level of levels) {
-    newPalette.colors[level] = [];
-  }
-  for (let color of starterPalette.colors) {
-    let scale = getScale(color.color, 9).reverse();
-    for (let i in scale) {
-      newPalette.colors[levels[i]].push({
-        name: `${color.name} ${levels[i]}`,
+const getPaletteLevels = (palette: IPalette): IPaletteLevels => {
+  const { paletteName, id, emoji } = palette;
+  var levels: IColor[][] = [];
+
+  palette.colors.forEach((color) => {
+    let scale = getScale(color.color, levelVolume.length).reverse();
+    const colorLevels: IColor[] = levelVolume.map((vol, i) => {
+      return {
+        levelVolume: vol,
+        name: `${color.name} ${vol}`,
         id: color.name.toLowerCase().replace(/ /g, "-"),
         hex: scale[i],
         rgb: chroma(scale[i]).css(),
@@ -57,10 +52,12 @@ function generatePalette(starterPalette: IPalette): IExtendedPalette {
           .css()
           .replace("rgb", "rgba")
           .replace(")", ",1.0)"),
-      });
-    }
-  }
-  return newPalette;
-}
+      };
+    });
+    levels.push(colorLevels);
+  });
 
-export { generatePalette };
+  return { paletteName, id, emoji, levels };
+};
+
+export { getPaletteLevels };

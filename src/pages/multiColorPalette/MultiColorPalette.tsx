@@ -5,8 +5,9 @@ import { StyleRulesCallback, Theme, WithStyles } from "@material-ui/core";
 import ColorBox from "../../components/ColorBox";
 import PaletteFooter from "../../components/PaletteFooter";
 import { useParams } from "react-router";
-import { generatePalette } from "../../utils/ColorHelpers";
+import { getPaletteLevels } from "../../utils/ColorHelpers";
 import { IPalette } from "../../models/IPalette";
+import { IColor } from "../../models/IPaletteLevels";
 
 interface Props {
   findPalette: (id: string) => IPalette | undefined;
@@ -18,10 +19,18 @@ const MultiColorPalette: React.FC<PaletteProps> = ({
   findPalette,
 }) => {
   const { id } = useParams();
-  const palette = generatePalette(findPalette(id!)!);
-  const [level, setlevel] = useState<number>(500);
+  const statingPalette = findPalette(id!);
+  const paletteLevels = getPaletteLevels(statingPalette!);
+
+  const [levelVolume, setlevel] = useState<number>(500);
   const [format, setformat] = useState<string>("hex");
-  const { colors } = palette;
+  const { levels } = paletteLevels;
+
+  const colorsOfLevel = levels.reduce((acc, item) => {
+    const hit = item.find((color) => color.levelVolume === levelVolume);
+    hit && acc.push(hit);
+    return acc;
+  }, [] as unknown as [IColor]);
 
   const handleChange = (
     e: React.ChangeEvent<{
@@ -38,7 +47,7 @@ const MultiColorPalette: React.FC<PaletteProps> = ({
     <div className={classes.palette}>
       <div className={classes.navbar}>
         <NavBar
-          level={level}
+          level={levelVolume}
           changeLevel={changeLevel}
           handleChange={(e) => handleChange(e)}
           format={format}
@@ -46,19 +55,18 @@ const MultiColorPalette: React.FC<PaletteProps> = ({
         ></NavBar>
       </div>
       <div className={classes.paletteColors}>
-        {colors[level].map((color) => (
+        {colorsOfLevel.map((color) => (
           <ColorBox
             key={color.id}
-            // background={Object.keys(color).find(p => p === format)!}
-            background={color[format]}
+            background={color[format] as string}
             colorId={color.id}
-            paletteId={palette.id}
+            paletteId={paletteLevels.id}
             name={color.name}
             showLink={true}
           ></ColorBox>
         ))}
       </div>
-      <PaletteFooter palette={palette}></PaletteFooter>
+      <PaletteFooter {...{ paletteLevels }}></PaletteFooter>
     </div>
   );
 };

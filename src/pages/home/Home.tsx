@@ -88,10 +88,8 @@ const Home: React.FC<ListProps> = ({ palettes, classes, setpalettes }) => {
   };
   const goToPalette = (id: string) => {
     navigate(`/palette/${id}`);
-    // history.push();
   };
   const deletePalette = () => {
-    // console.log(palettes!.filter(p => p.id !== palleteToDelete!.id));
     setpalettes(palettes!.filter((p) => p.id !== palleteToDelete!.id));
     setdialogOpen(false);
   };

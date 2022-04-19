@@ -1,10 +1,10 @@
 import React from "react";
 import { withStyles } from "@material-ui/styles";
 import { StyleRulesCallback, Theme, WithStyles } from "@material-ui/core";
-import { IExtendedPalette } from "../models/IExtendedPalette";
+import { IPaletteLevels } from "../models/IPaletteLevels";
 
 interface Props {
-  palette: IExtendedPalette;
+  paletteLevels: IPaletteLevels;
 }
 
 const styles: StyleRulesCallback<Theme, Props> = () => ({
@@ -22,11 +22,15 @@ const styles: StyleRulesCallback<Theme, Props> = () => ({
   },
 });
 interface PaletteFooterProps extends WithStyles<typeof styles>, Props {}
-const PaletteFooter: React.FC<PaletteFooterProps> = ({ palette, classes }) => {
+const PaletteFooter: React.FC<PaletteFooterProps> = ({
+  paletteLevels,
+  classes,
+}) => {
+  const { paletteName, emoji } = paletteLevels;
   return (
     <footer className={classes.paletteFooter}>
-      {palette.paletteName}
-      <span className={classes.emoji}>{palette.emoji}</span>
+      {paletteName}
+      <span className={classes.emoji}>{emoji}</span>
     </footer>
   );
 };

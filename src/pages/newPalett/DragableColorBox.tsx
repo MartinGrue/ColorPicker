@@ -5,7 +5,7 @@ import {
   withStyles,
   WithStyles,
 } from "@material-ui/core/styles";
-// import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
+import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { SortableElement } from "react-sortable-hoc";
 import { sizes } from "../../styles/sizes";
 
@@ -90,12 +90,12 @@ const DragableColorBox = SortableElement<DragableColorBoxProps>(
         onClick={() => selectColor(name)}
       >
         <div className={classes.boxContent}>
-          {/* <DeleteOutlinedIcon
+          <DeleteOutlinedIcon
             className={classes.deleteIcon}
             onClick={() => {
               deleteColor(name);
             }}
-          ></DeleteOutlinedIcon> */}
+          ></DeleteOutlinedIcon>
           <div className={classes.dragMeContainer}>
             <span>Drag me</span>
           </div>

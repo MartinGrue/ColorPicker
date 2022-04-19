@@ -6,13 +6,11 @@ import { StyleRulesCallback, WithStyles } from "@material-ui/core";
 import ColorBox from "../../components/ColorBox";
 import NavBar from "../../components/NavBar";
 import PaletteFooter from "../../components/PaletteFooter";
-import { IExtendedPalette } from "../../models/IExtendedPalette";
+import { IColor, IPaletteLevels } from "../../models/IPaletteLevels";
 import { sizes } from "../../styles/sizes";
 import { Theme } from "@material-ui/core";
 import { IPalette } from "../../models/IPalette";
-import { generatePalette } from "../../utils/ColorHelpers";
-
-
+import { getPaletteLevels } from "../../utils/ColorHelpers";
 
 interface Props {
   findPalette: (id: string) => IPalette | undefined;
@@ -20,14 +18,7 @@ interface Props {
 }
 
 interface SingleColorPaletteProps extends WithStyles<typeof styles>, Props {}
-interface shades {
-  [key: string]: string;
-  name: string;
-  id: string;
-  hex: string;
-  rgb: string;
-  rgba: string;
-}
+
 const SingleColorPalette: React.FC<SingleColorPaletteProps> = ({
   classes,
   findPalette,
@@ -39,25 +30,12 @@ const SingleColorPalette: React.FC<SingleColorPaletteProps> = ({
   // colorId={routeProps.match.params.colorId}
 
   const { paletteId, colorId } = useParams();
-  const palette = generatePalette(findPalette(paletteId!)!);
+  const palette = findPalette(paletteId!);
+  const paletteLevels = getPaletteLevels(palette!);
   const [format, setformat] = useState<string>("hex");
+  let levels = paletteLevels.levels;
 
-  const gatherShades = (palette: IExtendedPalette, colorToFilterBy: string) => {
-    let shades: shades[] | undefined;
-    let allColors = palette.colors;
-    for (let key in allColors) {
-      typeof shades === "undefined"
-        ? (shades = allColors[key].filter(
-            (color) => color.id === colorToFilterBy
-          ))
-        : (shades = shades!.concat(
-            allColors[key].filter((color) => color.id === colorToFilterBy)
-          ));
-    }
-    return shades!.slice(1);
-  };
-
-  const shades: shades[] = gatherShades(palette, colorId!);
+  const levelsOfColor = levels.find((level) => level[0].id === colorId!);
 
   const handleChange = (
     e: React.ChangeEvent<{
@@ -77,16 +55,16 @@ const SingleColorPalette: React.FC<SingleColorPaletteProps> = ({
         ></NavBar>
       </div>
       <div className={classes.paletteColors}>
-        {shades.map((color) => (
+        {levelsOfColor!.map((color) => (
           <ColorBox
             key={color.hex}
-            background={color[format]}
+            background={color[format] as string}
             name={color.name!}
             showLink={false}
           ></ColorBox>
         ))}
         <Link
-          to={`/palette/${palette.id}`}
+          to={`/palette/${paletteLevels.id}`}
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -97,7 +75,7 @@ const SingleColorPalette: React.FC<SingleColorPaletteProps> = ({
         </Link>
       </div>
       <div>
-        <PaletteFooter palette={palette}></PaletteFooter>
+        <PaletteFooter {...{ paletteLevels }}></PaletteFooter>
       </div>
     </div>
   );

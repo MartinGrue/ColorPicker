@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  MutableRefObject,
+  LegacyRef,
+} from "react";
 import ChromePicker from "react-color/lib/components/chrome/Chrome";
 import {
   Button,
@@ -7,7 +13,7 @@ import {
   StyleRulesCallback,
   Theme,
 } from "@material-ui/core";
-// import { ValidatorForm } from "react-material-ui-form-validator";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 interface Props {
   currentColor: string;
@@ -46,20 +52,21 @@ const ColoPickerForm: React.FC<ColoPickerFormProps> = ({
   setcolorObjs,
   classes,
 }) => {
+  const ref = useRef<ValidatorForm>(null);
   useEffect(() => {
-    // ValidatorForm.addValidationRule("isUniqueColorName", (value: string) => {
-    //   return colorObjs.every((colorObj: { name: string; color: string }) => {
-    //     return (
-    //       colorObj.name.toLowerCase() !== value.toLowerCase() &&
-    //       value.toLowerCase() !== colorObj.name.concat("\u200e").toLowerCase()
-    //     );
-    //   });
-    // });
-    // ValidatorForm.addValidationRule("isUniqueColor", () => {
-    //   return colorObjs.every((colorObj: { name: string; color: string }) => {
-    //     return colorObj.color.toLowerCase() !== currentColor.toLowerCase();
-    //   });
-    // });
+    ValidatorForm.addValidationRule("isUniqueColorName", (value: string) => {
+      return colorObjs.every((colorObj: { name: string; color: string }) => {
+        return (
+          colorObj.name.toLowerCase() !== value.toLowerCase() &&
+          value.toLowerCase() !== colorObj.name.concat("\u200e").toLowerCase()
+        );
+      });
+    });
+    ValidatorForm.addValidationRule("isUniqueColor", () => {
+      return colorObjs.every((colorObj: { name: string; color: string }) => {
+        return colorObj.color.toLowerCase() !== currentColor.toLowerCase();
+      });
+    });
   }, [colorObjs, currentColor]);
   const AddColor = () => {
     const newColor: { name: string; color: string } = {
@@ -79,10 +86,11 @@ const ColoPickerForm: React.FC<ColoPickerFormProps> = ({
         color={currentColor}
         onChangeComplete={(newColor) => {
           handlesetcurrentColor(newColor.hex);
-          setnewName(newName.concat("\u200e"));
+          ref.current?.isFormValid(false);
         }}
       ></ChromePicker>
-      {/* <ValidatorForm
+      <ValidatorForm
+        ref={ref}
         onSubmit={() => {
           AddColor();
         }}
@@ -114,7 +122,7 @@ const ColoPickerForm: React.FC<ColoPickerFormProps> = ({
         >
           {colorObjs.length >= 20 ? "Palette Full" : "Add Color"}
         </Button>
-      </ValidatorForm> */}
+      </ValidatorForm>
     </div>
   );
 };

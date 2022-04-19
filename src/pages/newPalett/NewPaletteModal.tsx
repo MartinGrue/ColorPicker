@@ -5,10 +5,10 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-// import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { IPalette } from "../../models/IPalette";
 import { Picker, BaseEmoji } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 interface PaletteMetaFormProps {
   palettes: IPalette[];
@@ -28,7 +28,6 @@ const PaletteMetaForm: React.FC<PaletteMetaFormProps> = ({
   const [newPaletteName, setnewPaletteName] = useState("");
 
   const handleClose = (reason: "backdropClick" | "escapeKeyDown") => {
-    console.log(reason);
     setmodalstage("emojiStage");
   };
   const handleChangePaletteName = (name: string) => {
@@ -39,13 +38,13 @@ const PaletteMetaForm: React.FC<PaletteMetaFormProps> = ({
 
     localsavePalette(newPaletteName, emoji);
   };
-  // useEffect(() => {
-  //   ValidatorForm.addValidationRule("isUniquePaletteName", (value: string) => {
-  //     return palettes.every((palette: IPalette) => {
-  //       return palette.paletteName.toLowerCase() !== value.toLowerCase();
-  //     });
-  //   });
-  // });
+  useEffect(() => {
+    ValidatorForm.addValidationRule("isUniquePaletteName", (value: string) => {
+      return palettes.every((palette: IPalette) => {
+        return palette.paletteName.toLowerCase() !== value.toLowerCase();
+      });
+    });
+  });
   return (
     <Fragment>
       <Dialog
@@ -67,7 +66,6 @@ const PaletteMetaForm: React.FC<PaletteMetaFormProps> = ({
           setmodalstage(undefined);
         }}
         onClose={(e, reason) => {
-          console.log("backdrop");
           if (reason === "backdropClick") {
             setmodalstage(undefined);
           } else {
@@ -77,7 +75,7 @@ const PaletteMetaForm: React.FC<PaletteMetaFormProps> = ({
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Chosse a palette Name</DialogTitle>
-        {/* <ValidatorForm onSubmit={() => {}}>
+        <ValidatorForm onSubmit={() => {}}>
           <DialogContent>
             <DialogContentText>
               Please enter a name for the new color palette.
@@ -114,7 +112,7 @@ const PaletteMetaForm: React.FC<PaletteMetaFormProps> = ({
               Go back
             </Button>
           </DialogActions>
-        </ValidatorForm> */}
+        </ValidatorForm>
       </Dialog>
     </Fragment>
   );

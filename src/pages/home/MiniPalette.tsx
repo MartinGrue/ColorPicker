@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactNode } from "react";
 import { withStyles } from "@material-ui/styles";
-// import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { StyleRulesCallback, Theme, WithStyles } from "@material-ui/core";
 import { IPalette } from "../../models/IPalette";
 
@@ -24,8 +24,6 @@ const styles: StyleRulesCallback<Theme, Props> = () => ({
     marginBottom: "auto",
     backgroundColor: "#dae1e4",
     height: "150px",
-    // flexGrow: 2,
-    // width: "100%",
     borderRadius: "5px",
     overflow: "hidden",
   },
@@ -89,14 +87,14 @@ const MiniPalette: FunctionComponent<MiniPaletteProps> = React.memo(
         }}
       >
         <div className={classes.delete}>
-          {/* <DeleteIcon
+          <DeleteIcon
             className={classes.deleteIcon}
             style={{ transition: "all 0.3s ease-in-out" }}
             onClick={(e: any) => {
               openParentDialog(palette);
               e.stopPropagation();
             }}
-          ></DeleteIcon> */}
+          ></DeleteIcon>
         </div>
         <div className={classes.colors}>
           {palette.colors.map((color) => (
